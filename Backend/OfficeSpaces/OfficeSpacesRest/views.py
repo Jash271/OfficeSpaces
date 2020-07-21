@@ -45,19 +45,23 @@ class SignIn(generics.GenericAPIView):
                     "Token": token.key,
                     "Photo": p.photo.url,
                     "Is_Manager": p.Is_Manager,
+                    "Flag": 1,
                 }
                 return JsonResponse(message, status=status.HTTP_200_OK)
 
             except:
-                message = {"Message": "There was some error"}
+                message = {"Flag": 0, "Message": "There was some error"}
                 return JsonResponse(message, status=status.HTTP_400_BAD_REQUEST)
 
         else:
-            message = {"Message": "Wrong Credentials enetered"}
+            message = {"Flag": 0, "Message": "Wrong Credentials enetered"}
             return JsonResponse(message, status=status.HTTP_400_BAD_REQUEST)
 
 
-class EmployeeData(generics.ListAPIView):
-    authentication_classes = (TokenAuthentication,)
+class Employee_Data(generics.ListAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [
+        Permit,
+    ]
     serializer_class = EmployeeSerializer
     queryset = Profile.objects.filter(Is_Manager=False)
