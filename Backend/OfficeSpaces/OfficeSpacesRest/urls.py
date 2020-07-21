@@ -5,6 +5,4 @@ from django.conf.urls.static import static
 from . import views
 from rest_framework import routers
 
-urlpatterns = [
-    path("index", views.index, name="index"),#Dummy Url
-]
+urlpatterns = [path("SignIn", views.SignIn.as_view(), name="SignIn")]

@@ -1,62 +1,57 @@
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm
-from .forms import UserRegisterForm
+from django.shortcuts import render
+from rest_framework.decorators import api_view, authentication_classes, action
+from django.contrib.auth import authenticate, login, logout
+from rest_framework.authtoken.models import Token
+from rest_framework.authentication import TokenAuthentication, BasicAuthentication
+import json
+from django.http import JsonResponse, HttpResponse
+from rest_framework import generics, status, viewsets, permissions
+from django.contrib.auth.models import User
 from django.core.mail import send_mail
-from django.core.mail import EmailMultiAlternatives
-from django.template.loader import get_template
-from django.template import Context
+from django.utils import timezone
+import datetime
+from django.contrib.auth.decorators import login_required
+from .models import *
+import base64
+from django.utils.html import escape
+import ast
+from django.contrib.auth.models import User
+from .permissions import *
+from .serializers import *
+import pandas as pd
+from rest_framework.authtoken.views import APIView
+from rest_framework.response import Response
 
 
-#################### index#######################################
-def index(request):
-    return render(request, 'user / index.html', {'title': 'index'})
-
-########### register here #####################################
-
-
-def register(request):
-    if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            email = form.cleaned_data.get('email')
-            ######################### mail system ####################################
-            htmly = get_template('user / Email.html')
-            d = {'username': username}
-            subject, from_email, to = 'welcome', 'your_email@gmail.com', email
-            html_content = htmly.render(d)
-            msg = EmailMultiAlternatives(
-                subject, html_content, from_email, [to])
-            msg.attach_alternative(html_content, "text / html")
-            msg.send()
-            ##################################################################
-            messages.success(
-                request, f'Your account has been created ! You are now able to log in')
-            return redirect('login')
-    else:
-        form = UserRegisterForm()
-    return render(request, 'user / register.html', {'form': form, 'title': 'reqister here'})
-
-################ login forms###################################################
-
-
-def Login(request):
-    if request.method == 'POST':
-
-        # AuthenticationForm_can_also_be_used__
-
-        username = request.POST['username']
-        password = request.POST['password']
+class SignIn(generics.GenericAPIView):
+    def post(self, request):
+        username = request.data["Username"]
+        password = request.data["Password"]
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            form = login(request, user)
-            messages.success(request, f' wecome {username} !!')
-            return redirect('index')
+            token, _ = Token.objects.get_or_create(user=user)
+            print(token.key)
+
+            login(request, user)
+            try:
+                p = Profile.objects.get(user_ref=request.user)
+                print("1")
+
+                message = {
+                    "user_id": p.user_ref.username,
+                    "First_Name": p.first_name,
+                    "Last_Name": p.last_name,
+                    "Address": p.address,
+                    "Token": token.key,
+                    "Photo": p.photo.url,
+                    "Is_Manager": p.Is_Manager,
+                }
+                return JsonResponse(message, status=status.HTTP_200_OK)
+
+            except:
+                message = {"Message": "There was some error"}
+                return JsonResponse(message, status=status.HTTP_400_BAD_REQUEST)
+
         else:
-            messages.info(request, f'account done not exit plz sign in')
-    form = AuthenticationForm()
-    return render(request, 'user / login.html', {'form': form, 'title': 'log in'})
+            message = {"Message": "Wrong Credentials enetered"}
+            return JsonResponse(message, status=status.HTTP_400_BAD_REQUEST)
