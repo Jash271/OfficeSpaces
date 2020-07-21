@@ -55,3 +55,9 @@ class SignIn(generics.GenericAPIView):
         else:
             message = {"Message": "Wrong Credentials enetered"}
             return JsonResponse(message, status=status.HTTP_400_BAD_REQUEST)
+
+
+class EmployeeData(generics.ListAPIView):
+    authentication_classes = (TokenAuthentication,)
+    serializer_class = EmployeeSerializer
+    queryset = Profile.objects.filter(Is_Manager=False)
