@@ -5,4 +5,7 @@ from django.conf.urls.static import static
 from . import views
 from rest_framework import routers
 
-urlpatterns = [path("SignIn", views.SignIn.as_view(), name="SignIn")]
+urlpatterns = [
+    path("SignIn", views.SignIn.as_view(), name="SignIn"),
+    path("Employees",views.EmployeeData.as_view(),name="Employees")
+]
