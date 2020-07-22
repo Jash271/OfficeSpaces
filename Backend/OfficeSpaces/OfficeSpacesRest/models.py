@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+import datetime
 # Create your models here.
 
 
@@ -18,11 +18,14 @@ class Profile(models.Model):
 
 class Social_distancing_violation(models.Model):
     number_of_violations = models.IntegerField()
-    timestamp = models.DateTimeField()
+    date = models.DateField(auto_now_add=True)
+    
+    time=models.TimeField(auto_now_add=True)
+    
     photo_violation = models.ImageField(upload_to="social_distancing_violation")
 
     def __str__(self):
-        return f"violations:{self.number_of_violations}----TimeStamp{self.timestamp}"
+        return f"violations:{self.number_of_violations}----TimeStamp{self.date} ----------{self.time}"
 
 
 class Mask_in_public(models.Model):
