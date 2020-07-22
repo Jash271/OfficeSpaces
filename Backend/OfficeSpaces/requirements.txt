@@ -3,7 +3,7 @@ asgiref==3.2.3
 attrs==19.3.0
 black==19.10b0
 Click==7.0
-Django==2.2.10
+Django==2.2.13
 django-cors-headers==3.2.1
 djangorestframework==3.11.0
 pathspec==0.7.0
