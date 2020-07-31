@@ -1,0 +1,22 @@
+language: python
+
+python:
+ - 3.6
+
+env:
+ - DJANGO=2.2.13
+
+before_install:
+ - export DJANGO_SETTINGS_MODULE=OfficeSpaces.settings
+
+install:
+ - pip install -r requirements.txt
+
+before_script:
+ - python manage.py makemigrations
+ - python manage.py migrate
+
+script:
+ - black --check OfficeSpaces/
+ - black --check OfficeSpacesRest/
+ - python manage.py test
