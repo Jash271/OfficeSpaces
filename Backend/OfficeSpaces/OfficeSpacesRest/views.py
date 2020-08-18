@@ -61,3 +61,12 @@ class EmployeeData(generics.ListAPIView):
     authentication_classes = (TokenAuthentication,)
     serializer_class = EmployeeSerializer
     queryset = Profile.objects.filter(Is_Manager=False)
+
+
+
+class EmployeeInstance(generics.RetrieveUpdateDestroyAPIView):
+    # authentication_classes([TokenAuthentication])
+    lookup_field="id"
+    queryset = Profile.objects.filter()
+    serializer_class=EmployeeSerializer
+
