@@ -66,6 +66,16 @@ class Employee_Data(generics.ListAPIView):
     serializer_class = EmployeeSerializer
     queryset = Profile.objects.filter(Is_Manager=False)
 
+
+
+
+class EmployeeInstance(generics.RetrieveUpdateDestroyAPIView):
+    # authentication_classes([TokenAuthentication])
+    
+    queryset = Profile.objects.filter()
+    serializer_class=EmployeeSerializer
+
+
 class Add_Violation(generics.GenericAPIView):
     def post(self,request):
         photo=request.data['photo']
@@ -73,3 +83,4 @@ class Add_Violation(generics.GenericAPIView):
         sv=Social_distancing_violation(photo_violation=photo,number_of_violations=nv)
         sv.save()
         return JsonResponse("ok",safe=False)
+
