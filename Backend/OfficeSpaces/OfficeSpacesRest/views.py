@@ -83,4 +83,33 @@ class Add_Violation(generics.GenericAPIView):
         sv=Social_distancing_violation(photo_violation=photo,number_of_violations=nv)
         sv.save()
         return JsonResponse("ok",safe=False)
+    
+
+
+
+#
+class AddAnnouncement(generics.GenericAPIView):
+    authentication_classes=[TokenAuthentication]
+    permission_classes=[Permit]
+
+    def post(self,request,*args,**kwargs):
+        try:
+            
+            Title=request.data['Title']
+            File=request.data['File']
+            Desc=request.data['Desc']
+            A=Announcements(Title=Title,File=File,description=Desc,publisher=request.user)
+            A.save()
+            return JsonResponse("Ok",status=status.HTTP_201_CREATED,safe=False)
+        except:
+            return JsonResponse("error",status=status.HTTP_400_BAD_REQUEST,safe=False)
+
+#    
+class AllAnnouncement(generics.ListAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [
+        Permit1,
+    ]
+    serializer_class = AllAnnouncmentSerializer
+    queryset = Announcements.objects.all()
 
