@@ -15,6 +15,8 @@ urlpatterns = [
         name="Employee"
     ),
     path("Employee_data", views.Employee_Data.as_view(), name="Employee_data"),
-    path("Add_Violation",views.Add_Violation.as_view(),name="Add_Violation")
+    path("Add_Violation",views.Add_Violation.as_view(),name="Add_Violation"),
+    path("AddAnnouncement",views.AddAnnouncement.as_view(),name="AddAnnouncement"),
+    path('AllAnnouncements',views.AllAnnouncement.as_view(),name="AllAnnouncements"),
 
 ]
