@@ -15,3 +15,9 @@ class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ["first_name", "last_name", "photo", "address", "user_ref"]
+class AllAnnouncmentSerializer(serializers.ModelSerializer):
+    publisher=userSerializers(many=False, read_only=True)
+
+    class Meta:
+        model=Announcements
+        fields=["File","description","publisher","Date","Time","Title"]
