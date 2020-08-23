@@ -7,5 +7,10 @@ from .models import *
 class SocialDistancingViolation(admin.ModelAdmin):
     readonly_fields = ('date','time')
 
+class AnnouncementCheck(admin.ModelAdmin):
+    readonly_fields = ('Date','Time')
+
+
 admin.site.register(Profile)
 admin.site.register(Social_distancing_violation,SocialDistancingViolation)
+admin.site.register(Announcements,AnnouncementCheck)
