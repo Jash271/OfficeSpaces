@@ -24,26 +24,43 @@ class Social_distancing_violation(models.Model):
     
     photo_violation = models.ImageField(upload_to="social_distancing_violation")
 
+
+    class Meta:
+        ordering=['-date','-time']
+
     def __str__(self):
         return f"violations:{self.number_of_violations}----TimeStamp{self.date} ----------{self.time}"
 
 
 class Mask_in_public(models.Model):
+    number_of_violations = models.IntegerField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    photo_violation = models.ImageField(upload_to="mask_in_public")
+    user_ref = models.ForeignKey(User, on_delete=models.CASCADE)
+   
+
+class Attendance(models.Model):
     date = models.DateField()
     intime = models.TimeField()
     outtime = models.TimeField()
     user_ref = models.ForeignKey(User, on_delete=models.CASCADE)
-
-
-class Attendance(models.Model):
-    number_of_violations = models.IntegerField()
-    timestamp = models.DateTimeField()
-    photo_violation = models.ImageField(upload_to="mask_in_public")
-    user_ref = models.ForeignKey(User, on_delete=models.CASCADE)
+    
 
 
 class Announcements(models.Model):
-    file = models.FileField()
+    Title = models.TextField()
     publisher = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.TextField()
-    photo = models.ImageField(upload_to="photos")
+    File = models.FileField(upload_to="Documents")
+    Date=models.DateField(auto_now_add=True)
+    Time=models.TimeField(auto_now_add=True)
+
+    class Meta:
+        ordering=['-Date','-Time']
+
+    def __str__(self):
+        return f'{self.description[:10]}-----{self.Date}-----{self.Time}'
+ 
+ 
+ 
+
