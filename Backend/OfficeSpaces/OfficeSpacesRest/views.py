@@ -70,8 +70,7 @@ class Employee_Data(generics.ListAPIView):
 
 
 class EmployeeInstance(generics.RetrieveUpdateDestroyAPIView):
-    # authentication_classes([TokenAuthentication])
-    
+    authentication_classes=[TokenAuthentication]
     queryset = Profile.objects.filter()
     serializer_class=EmployeeSerializer
 
