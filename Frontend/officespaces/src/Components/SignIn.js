@@ -27,6 +27,7 @@ toast.configure({
   pauseOnHover: true,
 });
 
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -122,7 +123,7 @@ export default function SignIn(props) {
         let x = localStorage.getItem('Token')
         console.log(x)
         
-        props.history.push('/dashboard');
+        props.history.push('/announcement');
       }
       else{
         notify(data.Message, 'error');

@@ -8,13 +8,18 @@ class Attendance extends React.Component {
         super(props);
 
         this.state = {
-            myEvents: []
+            myEvents: [{'start':"2020-07-23",
+                        "end":"2020-07-23",
+                        "text":"P"},
+                        {'start':"2020-07-29",
+                        "end":"2020-07-30",
+                        "text":"P"},
+                        {'start':"2020-08-29",
+                        "end":"2020-08-30",
+                        "text":"P"}]
         };
         
-        mobiscroll.util.getJson('https://trial.mobiscroll.com/events/', (events) => {
-            console.log(events)
-            this.setState({ myEvents: events });
-        }, 'jsonp');
+ 
     }
     onEventSelect = (event, inst) => {
         mobiscroll.toast({
