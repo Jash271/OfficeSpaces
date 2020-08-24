@@ -8,9 +8,9 @@ from rest_framework import routers
 urlpatterns = [
     path("SignIn", views.SignIn.as_view(), name="SignIn"),
 
-    path("Employees",views.EmployeeData.as_view(),name="Employees"),
+    path("Employees",views.Employee_Data.as_view(),name="Employees"),
     path(
-        'Employee/<int:id>',
+        'Employee/<int:pk>',
         views.EmployeeInstance.as_view(),
         name="Employee"
     ),
