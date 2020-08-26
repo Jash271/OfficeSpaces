@@ -15,7 +15,6 @@ class Profile(models.Model):
     def __str__(self):
         return f"{self.user_ref}"
 
-
 class Social_distancing_violation(models.Model):
     number_of_violations = models.IntegerField()
     date = models.DateField(auto_now_add=True)
@@ -44,8 +43,6 @@ class Attendance(models.Model):
     outtime = models.TimeField()
     user_ref = models.ForeignKey(User, on_delete=models.CASCADE)
     
-
-
 class Announcements(models.Model):
     Title = models.TextField()
     publisher = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -53,7 +50,6 @@ class Announcements(models.Model):
     File = models.FileField(upload_to="Documents")
     Date=models.DateField(auto_now_add=True)
     Time=models.TimeField(auto_now_add=True)
-
     class Meta:
         ordering=['-Date','-Time']
 
