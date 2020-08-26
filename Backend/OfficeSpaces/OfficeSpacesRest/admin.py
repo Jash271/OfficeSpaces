@@ -14,3 +14,4 @@ class AnnouncementCheck(admin.ModelAdmin):
 admin.site.register(Profile)
 admin.site.register(Social_distancing_violation,SocialDistancingViolation)
 admin.site.register(Announcements,AnnouncementCheck)
+admin.site.register(Mask_in_public)

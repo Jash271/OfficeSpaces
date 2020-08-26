@@ -19,25 +19,24 @@ class Profile(models.Model):
 class Social_distancing_violation(models.Model):
     number_of_violations = models.IntegerField()
     date = models.DateField(auto_now_add=True)
-    
     time=models.TimeField(auto_now_add=True)
-    
     photo_violation = models.ImageField(upload_to="social_distancing_violation")
-
-
     class Meta:
         ordering=['-date','-time']
 
     def __str__(self):
         return f"violations:{self.number_of_violations}----TimeStamp{self.date} ----------{self.time}"
 
-
 class Mask_in_public(models.Model):
     number_of_violations = models.IntegerField()
-    timestamp = models.DateTimeField(auto_now_add=True)
+    date=models.DateField(auto_now_add=True)
+    time=models.TimeField(auto_now_add=True)
     photo_violation = models.ImageField(upload_to="mask_in_public")
-    user_ref = models.ForeignKey(User, on_delete=models.CASCADE)
-   
+    class Meta:
+        ordering=['-date','-time']
+
+    def __str__(self):
+        return f"violations:{self.number_of_violations}----TimeStamp{self.date} ----------{self.time}"
 
 class Attendance(models.Model):
     date = models.DateField()

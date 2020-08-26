@@ -112,3 +112,22 @@ class AllAnnouncement(generics.ListAPIView):
     serializer_class = AllAnnouncmentSerializer
     queryset = Announcements.objects.all()
 
+class ChartData(generics.GenericAPIView):
+    authentication_classes = [TokenAuthentication]
+    def post(self,request):
+        month=request.data['month']
+        if month is not None:
+            social_distancing = Social_distancing_violation.objects.filter(date__month=month).count()
+            mask = Mask_in_public.objects.filter(date__month=month).count()
+            social_distancing_list=[]
+            mask_list=[]
+            for i in range(30):
+                social_distancing_list.append(Social_distancing_violation.objects.filter(date__day=i,date__month=month).count()) 
+                mask_list.append(Mask_in_public.objects.filter(date__day=i,date__month=month).count()) 
+        message={
+            "Social_Distancing_Violation_Month":social_distancing,
+            "Mask_Violation_Month":mask,
+            "Social_Distancing_Violation":social_distancing_list,
+            "Mask_Violation":mask_list,
+        }
+        return JsonResponse(message,status=status.HTTP_200_OK)

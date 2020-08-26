@@ -18,5 +18,5 @@ urlpatterns = [
     path("Add_Violation",views.Add_Violation.as_view(),name="Add_Violation"),
     path("AddAnnouncement",views.AddAnnouncement.as_view(),name="AddAnnouncement"),
     path('AllAnnouncements',views.AllAnnouncement.as_view(),name="AllAnnouncements"),
-
+    path('violation-tracker',views.ChartData.as_view(),name="violation-tracker")
 ]
