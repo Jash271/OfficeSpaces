@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { setCurrent } from '../actions/employeeActions'
+import { Link } from 'react-router-dom'
+
 
 const EmployeeItem = ({ employee, setCurrent }) => {
 
@@ -22,7 +24,7 @@ const EmployeeItem = ({ employee, setCurrent }) => {
                         <span>
                             <h4>
                                 <span>{first_name} {last_name}</span>&nbsp;&nbsp;
-                                <a class="btn-floating waves-effect waves-light purple" onClick={setTheEmployee}><i class="material-icons">keyboard_arrow_right</i></a>
+                                <Link to="/employee_detail" class="btn-floating waves-effect waves-light purple" onClick={setTheEmployee}><i class="material-icons">keyboard_arrow_right</i></Link>
                             </h4>
                         </span>
                     </div>
