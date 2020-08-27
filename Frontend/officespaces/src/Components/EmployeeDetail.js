@@ -1,15 +1,18 @@
 import React from "react";
-
 import Grid from "@material-ui/core/Grid";
 import PersonIcon from "@material-ui/icons/Person";
 import ApartmentIcon from "@material-ui/icons/Apartment";
 import WorkIcon from "@material-ui/icons/Work";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Attendance from "./Attendance";
+import { connect } from 'react-redux'
 
-const employeeDetail = (props) => {
+const employeeDetail = ({ current }) => {
   return (
     <div style={{ margin: "30px" }}>
+      <div className="center">
+        <h1><span className="grey-text">Employee</span> <span className="purple-text">details</span></h1>
+      </div>
       <div className="row">
         <div className="card-medium">
           <div className="">
@@ -24,7 +27,7 @@ const employeeDetail = (props) => {
                         borderRadius: "125px",
                         marginBottom: "10px",
                       }}
-                      src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                      src={current.photo}
                     />
                   </Grid>
                   <Grid
@@ -44,7 +47,7 @@ const employeeDetail = (props) => {
                       >
                         <PersonIcon /> Employee-Name:
                       </span>
-                      <span style={{ color: "purple" }}>Jenish Hirpara</span>
+                      <span style={{ color: "purple" }}>{current.first_name} {current.last_name}</span>
                     </h5>
                     <h5 className="card-title">
                       <span
@@ -57,8 +60,7 @@ const employeeDetail = (props) => {
                         <ApartmentIcon /> Address:
                       </span>
                       <span style={{ color: "purple" }}>
-                        100, Chandan Apartments, Nala Sopara, Washington DC,
-                        South Africa
+                        {current.address}
                       </span>
                     </h5>
                     <h5 className="card-title">
@@ -71,19 +73,7 @@ const employeeDetail = (props) => {
                       >
                         <AccountCircleIcon /> Username:
                       </span>
-                      <span style={{ color: "purple" }}>60004180000</span>
-                    </h5>
-                    <h5 className="card-title">
-                      <span
-                        style={{
-                          color: "purple",
-                          fontWeight: "bold",
-                          marginRight: "20px",
-                        }}
-                      >
-                        <WorkIcon /> Employee-Type:
-                      </span>
-                      <span style={{ color: "purple" }}>Full-Time</span>
+                      <span style={{ color: "purple" }}>{current.username}</span>
                     </h5>
                   </Grid>
                 </Grid>
@@ -99,4 +89,8 @@ const employeeDetail = (props) => {
   );
 };
 
-export default employeeDetail;
+const mapStateToProps = (state) => ({
+  current: state.employee.current
+})
+
+export default connect(mapStateToProps, null)(employeeDetail);
