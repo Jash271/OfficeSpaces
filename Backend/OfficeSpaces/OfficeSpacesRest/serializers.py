@@ -6,7 +6,9 @@ from .models import *
 class userSerializers(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["username"]
+        fields = [
+            "username",
+        ]
 
 
 class EmployeeSerializer(serializers.ModelSerializer):
@@ -14,10 +16,12 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ["first_name", "last_name", "photo", "address", "user_ref"]
+        fields = ["first_name", "last_name", "photo", "address", "user_ref", "id"]
+
+
 class AllAnnouncmentSerializer(serializers.ModelSerializer):
-    publisher=userSerializers(many=False, read_only=True)
+    publisher = userSerializers(many=False, read_only=True)
 
     class Meta:
-        model=Announcements
-        fields=["File","description","publisher","Date","Time","Title"]
+        model = Announcements
+        fields = ["File", "description", "publisher", "Date", "Time", "Title", "id"]
