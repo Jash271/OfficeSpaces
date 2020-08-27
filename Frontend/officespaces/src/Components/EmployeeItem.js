@@ -1,31 +1,37 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { setCurrent } from '../actions/employeeActions'
 
-const EmployeeItem = ({ employee }) => {
+const EmployeeItem = ({ employee, setCurrent }) => {
 
-    const { name, position, image } = employee
-    console.log(name, position, image)
+    const { first_name, last_name, photo, id } = employee
+    console.log(first_name, last_name, photo, id)
+
+    const setTheEmployee = () => {
+        setCurrent(employee)
+    }
 
     return (
         <div className="column" float="left" width="50%">
             <div className="col s6 m4">
                 <div className="card">
-                    <div className="">
-                        <img className="round-img" width="200" height='200' src={image} />
+                    <div className="center">
+                        <img className="round-img" width="200" height='200' src={photo} />
                     </div>
                     <div class="card-content">
                         <span>
                             <h4>
-                                <span>{name}</span>&nbsp;&nbsp;
-                                <a class="btn-floating waves-effect waves-light deep-purple accent-4" > <i class="material-icons">keyboard_arrow_right</i></a>
+                                <span>{first_name} {last_name}</span>&nbsp;&nbsp;
+                                <a class="btn-floating waves-effect waves-light purple" onClick={setTheEmployee}><i class="material-icons">keyboard_arrow_right</i></a>
                             </h4>
                         </span>
-                        <p>{position}</p>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
 
     )
 }
 
-export default EmployeeItem
+
+export default connect(null, { setCurrent })(EmployeeItem)

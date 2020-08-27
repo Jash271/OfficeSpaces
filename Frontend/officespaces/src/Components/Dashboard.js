@@ -20,14 +20,19 @@ const Home = ({ employees, getEmployees, filtered, filterContacts, clearFilter }
     }
 
     const onClickClose = () => {
-        text.current = ''
+        text.current.value = ''
+        clearFilter()
+
     }
 
     return (
         <div>
+            <div className="container center" >
+                <h1><span class="grey-text">All</span> <span className="purple-text">Employees</span></h1>
+            </div>
             <div className="container s12 m10">
 
-                <nav className="deep-purple accent-4" style={{
+                <nav className="purple darken-2" style={{
                     marginBottom: '30px'
                 }}>
                     <div class="nav-wrapper">
@@ -42,21 +47,24 @@ const Home = ({ employees, getEmployees, filtered, filterContacts, clearFilter }
                 </nav>
 
             </div>
-            {filtered === null ? (
-                <div className="container s10 m5">
-                    <div className="row">
-                        {employees && employees.map(employee =>
-                            <EmployeeItem employee={employee} key={employee.id} />)}
-                    </div>
-                </div>) : (
+
+            {
+                filtered === null ? (
                     <div className="container s10 m5">
                         <div className="row">
-                            {filtered.map(employee =>
+                            {employees && employees.map(employee =>
                                 <EmployeeItem employee={employee} key={employee.id} />)}
                         </div>
-                    </div>
-                )}
-        </div>
+                    </div>) : (
+                        <div className="container s10 m5">
+                            <div className="row">
+                                {filtered.map(employee =>
+                                    <EmployeeItem employee={employee} key={employee.id} />)}
+                            </div>
+                        </div>
+                    )
+            }
+        </div >
     )
 }
 
