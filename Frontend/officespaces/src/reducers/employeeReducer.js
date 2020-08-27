@@ -1,4 +1,4 @@
-import { EMPLOYEES_ERROR, GET_EMPLOYEES, FILTER_EMPLOYEES, CLEAR_FILTER } from '../actions/types';
+import { EMPLOYEES_ERROR, GET_EMPLOYEES, FILTER_EMPLOYEES, CLEAR_FILTER, SET_CURRENT } from '../actions/types';
 import heth from '../photos/heth.jpeg'
 import jash from '../photos/jash.jpeg'
 import jenish from '../photos/jenish.jpeg'
@@ -8,31 +8,32 @@ const initialState = {
     employees: [
         {
             id: 1,
-            name: "Heth Gala",
-            position: "Computer Engineer",
-            image: heth
+            first_name: "Heth",
+            last_name: "Gala",
+            photo: heth
         },
         {
             id: 2,
-            name: "Jash Shah",
-            position: "Django Master",
-            image: jash
+            first_name: "Jash",
+            last_name: "Shah",
+            photo: jash
         },
         {
             id: 3,
-            name: "Jenish Hirpara",
-            position: "Flutter Master",
-            image: jenish
+            first_name: "Jenish",
+            last_name: "Hirpara",
+            photo: jenish
         },
         {
             id: 4,
-            name: 'Mihir Shah',
-            position: 'Android Master',
-            image: mihir
+            first_name: 'Mihir',
+            last_name: 'Shah',
+            photo: mihir
         }
     ],
     error: null,
-    filtered: null
+    filtered: null,
+    current: null
 }
 
 export default (state = initialState, action) => {
@@ -52,13 +53,18 @@ export default (state = initialState, action) => {
                 ...state,
                 filtered: state.employees.filter(employee => {
                     const regex = new RegExp(`${action.payload}`, 'gi');
-                    return employee.name.match(regex);
+                    return employee.first_name.match(regex);
                 })
             }
         case CLEAR_FILTER:
             return {
                 ...state,
                 filtered: null
+            }
+        case SET_CURRENT:
+            return {
+                ...state,
+                current: action.payload
             }
         default:
             return {

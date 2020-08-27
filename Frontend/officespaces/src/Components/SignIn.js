@@ -12,7 +12,6 @@ import Container from '@material-ui/core/Container';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Dashboard from './Dashboard'
 
 
 toast.configure({
@@ -85,16 +84,16 @@ export default function SignIn(props) {
   }
 
   const handleChange = (prop) => (event) => {
-     
+
     setValues({
       ...values,
       [prop]: event.target.value,
     });
   };
 
-  const submitHandler =  async (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    
+
 
     var myHeaders = new Headers();
 
@@ -102,43 +101,35 @@ export default function SignIn(props) {
     formdata.append("Username", values['username']);
     formdata.append("Password", values['password']);
     var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: formdata,
-        redirect: 'follow'
-      };
-      let res = await fetch("http://127.0.0.1:8000/operations/SignIn",requestOptions)
-      let data = await res.json()
-      
-      if (data.Flag===1){
-        localStorage.setItem('Token', data.Token);
-        localStorage.setItem('Status', 'LoggedIn');
-        localStorage.setItem('Image', data.Photo);
-        localStorage.setItem('Name',data.Name);
-        localStorage.setItem('m_id',data.user_id);
-        localStorage.setItem('Is_Manager',data.Is_Manager);
-        localStorage.setItem("First_Name",data.First_Name);
-        localStorage.setItem("Last_Name",data.Last_Name);
-        notify('  Login Successful!!!', 'info');
-        let x = localStorage.getItem('Token')
-        console.log(x)
-        
-        props.history.push('/announcement');
-      }
-      else{
-        notify(data.Message, 'error');
+      method: 'POST',
+      headers: myHeaders,
+      body: formdata,
+      redirect: 'follow'
+    };
+    let res = await fetch("http://127.0.0.1:8000/operations/SignIn", requestOptions)
+    let data = await res.json()
 
-      }
+    if (data.Flag === 1) {
+      localStorage.setItem('Token', data.Token);
+      localStorage.setItem('Status', 'LoggedIn');
+      localStorage.setItem('Image', data.Photo);
+      localStorage.setItem('Name', data.Name);
+      localStorage.setItem('m_id', data.user_id);
+      localStorage.setItem('Is_Manager', data.Is_Manager);
+      localStorage.setItem("First_Name", data.First_Name);
+      localStorage.setItem("Last_Name", data.Last_Name);
+      notify('  Login Successful!!!', 'info');
+      let x = localStorage.getItem('Token')
+      console.log(x)
+
+      props.history.push('/announcement');
     }
+    else {
+      notify(data.Message, 'error');
 
+    }
+  }
 
-      
-
-    
-    
-
-    
-  
 
   return (
     <Container component="main" maxWidth="xs">

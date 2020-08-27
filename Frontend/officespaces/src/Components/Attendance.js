@@ -1,4 +1,3 @@
-
 import React from 'react';
 import mobiscroll from '@mobiscroll/react';
 import '@mobiscroll/react/dist/css/mobiscroll.min.css';
@@ -8,18 +7,24 @@ class Attendance extends React.Component {
         super(props);
 
         this.state = {
-            myEvents: [{'start':"2020-07-23",
-                        "end":"2020-07-23",
-                        "text":"P"},
-                        {'start':"2020-07-29",
-                        "end":"2020-07-30",
-                        "text":"P"},
-                        {'start':"2020-08-29",
-                        "end":"2020-08-30",
-                        "text":"P"}]
+            myEvents: [{
+                'start': "2020-07-23",
+                "end": "2020-07-23",
+                "text": "P"
+            },
+            {
+                'start': "2020-07-29",
+                "end": "2020-07-30",
+                "text": "P"
+            },
+            {
+                'start': "2020-08-29",
+                "end": "2020-08-30",
+                "text": "P"
+            }]
         };
-        
- 
+
+
     }
     onEventSelect = (event, inst) => {
         mobiscroll.toast({
@@ -29,7 +34,7 @@ class Attendance extends React.Component {
     render() {
         return (
             <mobiscroll.Eventcalendar
-                theme="mobiscroll" 
+                theme="mobiscroll"
                 themeVariant="dark"
                 display="inline"
                 calendarHeight={614}
@@ -42,7 +47,7 @@ class Attendance extends React.Component {
                 data={this.state.myEvents}
             />
         );
-    }    
+    }
 }
 
 export default Attendance;
