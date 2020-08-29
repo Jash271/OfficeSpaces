@@ -68,37 +68,41 @@ class Employee_Data(generics.ListAPIView):
 
 
 class EmployeeInstance(generics.RetrieveUpdateDestroyAPIView):
-    authentication_classes=[TokenAuthentication]
+    authentication_classes = [TokenAuthentication]
     queryset = Profile.objects.filter()
-    serializer_class=EmployeeSerializer
+    serializer_class = EmployeeSerializer
 
 
 class Add_Violation(generics.GenericAPIView):
-    def post(self,request):
-        photo=request.data['photo']
-        nv=request.data['nv']
-        sv=Social_distancing_violation(photo_violation=photo,number_of_violations=nv)
+    def post(self, request):
+        photo = request.data["photo"]
+        nv = request.data["nv"]
+        sv = Social_distancing_violation(photo_violation=photo, number_of_violations=nv)
         sv.save()
-        return JsonResponse("ok",safe=False)
+        return JsonResponse("ok", safe=False)
+
 
 #
 class AddAnnouncement(generics.GenericAPIView):
-    authentication_classes=[TokenAuthentication]
-    permission_classes=[Permit]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [Permit]
 
-    def post(self,request,*args,**kwargs):
+    def post(self, request, *args, **kwargs):
         try:
-            
-            Title=request.data['Title']
-            File=request.data['File']
-            Desc=request.data['Desc']
-            A=Announcements(Title=Title,File=File,description=Desc,publisher=request.user)
-            A.save()
-            return JsonResponse("Ok",status=status.HTTP_201_CREATED,safe=False)
-        except:
-            return JsonResponse("error",status=status.HTTP_400_BAD_REQUEST,safe=False)
 
-#    
+            Title = request.data["Title"]
+            File = request.data["File"]
+            Desc = request.data["Desc"]
+            A = Announcements(
+                Title=Title, File=File, description=Desc, publisher=request.user
+            )
+            A.save()
+            return JsonResponse("Ok", status=status.HTTP_201_CREATED, safe=False)
+        except:
+            return JsonResponse("error", status=status.HTTP_400_BAD_REQUEST, safe=False)
+
+
+#
 class AllAnnouncement(generics.ListAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [
@@ -107,22 +111,50 @@ class AllAnnouncement(generics.ListAPIView):
     serializer_class = AllAnnouncmentSerializer
     queryset = Announcements.objects.all()
 
+
 class ChartData(generics.GenericAPIView):
     authentication_classes = [TokenAuthentication]
-    def post(self,request):
-        month=request.data['month']
+
+    def post(self, request):
+        month = request.data["month"]
         if month is not None:
-            social_distancing = Social_distancing_violation.objects.filter(date__month=month).count()
-            mask = Mask_in_public.objects.filter(date__month=month).count()
-            social_distancing_list=[]
-            mask_list=[]
+            social_distancing = 0
+
+            for x in Social_distancing_violation.objects.filter(date__month=month):
+                social_distancing += x.number_of_violations
+
+            mask = 0
+            for y in Mask_in_public.objects.filter(date__month=month):
+                mask += y.number_of_violations
+
+            social_distancing_list = []
+            mask_list = []
             for i in range(30):
-                social_distancing_list.append(Social_distancing_violation.objects.filter(date__day=i,date__month=month).count()) 
-                mask_list.append(Mask_in_public.objects.filter(date__day=i,date__month=month).count()) 
-        message={
-            "Social_Distancing_Violation_Month":social_distancing,
-            "Mask_Violation_Month":mask,
-            "Social_Distancing_Violation":social_distancing_list,
-            "Mask_Violation":mask_list,
+                sum1 = 0
+                for x in Social_distancing_violation.objects.filter(
+                    date__day=i, date__month=month
+                ):
+                    try:
+                        sum1 += x.number_of_violations
+                    except:
+                        continue
+
+                social_distancing_list.append(sum1)
+
+            for i in range(30):
+                sum1 = 0
+                for x in Mask_in_public.objects.filter(date__day=i, date__month=month):
+                    try:
+                        sum1 += x.number_of_violations
+                    except:
+                        continue
+
+                mask_list.append(sum1)
+
+        message = {
+            "Social_Distancing_Violation_Month": social_distancing,
+            "Mask_Violation_Month": mask,
+            "Social_Distancing_Violation": social_distancing_list,
+            "Mask_Violation": mask_list,
         }
-        return JsonResponse(message,status=status.HTTP_200_OK)
+        return JsonResponse(message, status=status.HTTP_200_OK)

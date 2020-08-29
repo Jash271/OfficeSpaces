@@ -16,14 +16,16 @@ class Permit(permissions.BasePermission):
                 return False
         except:
             return False
+
+
 class Permit1(permissions.BasePermission):
     message = "Access Denied"
 
     def has_permission(self, request, view):
         try:
             p = Profile.objects.get(user_ref=request.user)
-            if p.Is_Manager or p.Is_Manager==False:
+            if p.Is_Manager or p.Is_Manager == False:
                 return True
-            
+
         except:
             return False
