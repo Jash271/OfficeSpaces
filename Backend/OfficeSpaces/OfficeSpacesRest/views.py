@@ -21,6 +21,7 @@ from .serializers import *
 import pandas as pd
 from rest_framework.authtoken.views import APIView
 from rest_framework.response import Response
+import calendar
 
 
 class SignIn(generics.GenericAPIView):
@@ -34,7 +35,7 @@ class SignIn(generics.GenericAPIView):
 
             login(request, user)
             try:
-                p = Profile.objects.get(user_ref=request.user)
+                p = Profile.objects.first().get(user_ref=request.user)
                 print("1")
 
                 message = {
@@ -75,14 +76,16 @@ class EmployeeInstance(generics.RetrieveUpdateDestroyAPIView):
 
 class Add_Violation(generics.GenericAPIView):
     def post(self, request):
-        photo = request.data["photo"]
-        nv = request.data["nv"]
-        sv = Social_distancing_violation(photo_violation=photo, number_of_violations=nv)
+        photo = request.data['photo']
+        nv = request.data['nv']
+        sv = Social_distancing_violation(
+            photo_violation=photo, number_of_violations=nv)
         sv.save()
         return JsonResponse("ok", safe=False)
 
-
 #
+
+
 class AddAnnouncement(generics.GenericAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [Permit]
@@ -90,19 +93,19 @@ class AddAnnouncement(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         try:
 
-            Title = request.data["Title"]
-            File = request.data["File"]
-            Desc = request.data["Desc"]
-            A = Announcements(
-                Title=Title, File=File, description=Desc, publisher=request.user
-            )
+            Title = request.data['Title']
+            File = request.data['File']
+            Desc = request.data['Desc']
+            A = Announcements(Title=Title, File=File,
+                              description=Desc, publisher=request.user)
             A.save()
             return JsonResponse("Ok", status=status.HTTP_201_CREATED, safe=False)
         except:
             return JsonResponse("error", status=status.HTTP_400_BAD_REQUEST, safe=False)
 
-
 #
+
+
 class AllAnnouncement(generics.ListAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [
@@ -116,41 +119,25 @@ class ChartData(generics.GenericAPIView):
     authentication_classes = [TokenAuthentication]
 
     def post(self, request):
-        month = request.data["month"]
+        month = request.data['month']
+        year = request.data['year']
         if month is not None:
-            social_distancing = 0
-
-            for x in Social_distancing_violation.objects.filter(date__month=month):
-                social_distancing += x.number_of_violations
-
-            mask = 0
-            for y in Mask_in_public.objects.filter(date__month=month):
-                mask += y.number_of_violations
-
             social_distancing_list = []
             mask_list = []
-            for i in range(30):
-                sum1 = 0
-                for x in Social_distancing_violation.objects.filter(
-                    date__day=i, date__month=month
-                ):
-                    try:
-                        sum1 += x.number_of_violations
-                    except:
-                        continue
-
-                social_distancing_list.append(sum1)
-
-            for i in range(30):
-                sum1 = 0
-                for x in Mask_in_public.objects.filter(date__day=i, date__month=month):
-                    try:
-                        sum1 += x.number_of_violations
-                    except:
-                        continue
-
-                mask_list.append(sum1)
-
+            sdl = Social_distancing_violation.objects.values(
+                'number_of_violations', 'date')
+            mip = Mask_in_public.objects.values('number_of_violations', 'date')
+            for i in range(1, calendar.monthrange(int(year), int(month))[1]+1):
+                social_distancing_list.append(0)
+                mask_list.append(0)
+            for vio in sdl:
+                social_distancing_list[int(str(vio['date'])[
+                                           8:])-1] = social_distancing_list[int(str(vio['date'])[8:])-1]+vio['number_of_violations']
+            for vio in mip:
+                mask_list[int(str(vio['date'])[
+                              8:])-1] = mask_list[int(str(vio['date'])[8:])-1]+vio['number_of_violations']
+            social_distancing = sum(social_distancing_list)
+            mask = sum(mask_list)
         message = {
             "Social_Distancing_Violation_Month": social_distancing,
             "Mask_Violation_Month": mask,
