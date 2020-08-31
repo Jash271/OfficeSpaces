@@ -114,6 +114,13 @@ class AllAnnouncement(generics.ListAPIView):
     serializer_class = AllAnnouncmentSerializer
     queryset = Announcements.objects.all()
 
+class EmployeeAnnoucement(generics.ListAPIView):
+    authentication_classes=[TokenAuthentication]
+    permission_classes={
+      Permit1,
+    }
+    serializer_class = EmployeeSerializer
+    emp_announcement = Profile.objects.filter()
 
 class ChartData(generics.GenericAPIView):
     authentication_classes = [TokenAuthentication]
