@@ -7,28 +7,24 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("OfficeSpacesRest", "0004_auto_20200721_1846"),
+        ('OfficeSpacesRest', '0004_auto_20200721_1846'),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name="social_distancing_violation",
-            name="timestamp",
+            model_name='social_distancing_violation',
+            name='timestamp',
         ),
         migrations.AddField(
-            model_name="social_distancing_violation",
-            name="date",
-            field=models.DateField(
-                auto_now_add=True, default=django.utils.timezone.now
-            ),
+            model_name='social_distancing_violation',
+            name='date',
+            field=models.DateField(auto_now_add=True, default=django.utils.timezone.now),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name="social_distancing_violation",
-            name="time",
-            field=models.TimeField(
-                auto_now_add=True, default=django.utils.timezone.now
-            ),
+            model_name='social_distancing_violation',
+            name='time',
+            field=models.TimeField(auto_now_add=True, default=django.utils.timezone.now),
             preserve_default=False,
         ),
     ]

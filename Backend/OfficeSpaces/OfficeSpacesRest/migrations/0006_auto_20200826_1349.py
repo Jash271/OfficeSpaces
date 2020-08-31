@@ -7,123 +7,117 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("OfficeSpacesRest", "0005_auto_20200722_1807"),
+        ('OfficeSpacesRest', '0005_auto_20200722_1807'),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name="announcements",
-            options={"ordering": ["-Date", "-Time"]},
+            name='announcements',
+            options={'ordering': ['-Date', '-Time']},
         ),
         migrations.AlterModelOptions(
-            name="mask_in_public",
-            options={"ordering": ["-date", "-time"]},
+            name='mask_in_public',
+            options={'ordering': ['-date', '-time']},
         ),
         migrations.AlterModelOptions(
-            name="social_distancing_violation",
-            options={"ordering": ["-date", "-time"]},
+            name='social_distancing_violation',
+            options={'ordering': ['-date', '-time']},
         ),
         migrations.RemoveField(
-            model_name="announcements",
-            name="file",
+            model_name='announcements',
+            name='file',
         ),
         migrations.RemoveField(
-            model_name="announcements",
-            name="photo",
+            model_name='announcements',
+            name='photo',
         ),
         migrations.RemoveField(
-            model_name="attendance",
-            name="number_of_violations",
+            model_name='attendance',
+            name='number_of_violations',
         ),
         migrations.RemoveField(
-            model_name="attendance",
-            name="photo_violation",
+            model_name='attendance',
+            name='photo_violation',
         ),
         migrations.RemoveField(
-            model_name="attendance",
-            name="timestamp",
+            model_name='attendance',
+            name='timestamp',
         ),
         migrations.RemoveField(
-            model_name="mask_in_public",
-            name="intime",
+            model_name='mask_in_public',
+            name='intime',
         ),
         migrations.RemoveField(
-            model_name="mask_in_public",
-            name="outtime",
+            model_name='mask_in_public',
+            name='outtime',
         ),
         migrations.RemoveField(
-            model_name="mask_in_public",
-            name="user_ref",
+            model_name='mask_in_public',
+            name='user_ref',
         ),
         migrations.AddField(
-            model_name="announcements",
-            name="Date",
-            field=models.DateField(
-                auto_now_add=True, default=django.utils.timezone.now
-            ),
+            model_name='announcements',
+            name='Date',
+            field=models.DateField(auto_now_add=True, default=django.utils.timezone.now),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name="announcements",
-            name="File",
-            field=models.FileField(upload_to="Documents"),
+            model_name='announcements',
+            name='File',
+            field=models.FileField(upload_to='Documents'),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name="announcements",
-            name="Time",
-            field=models.TimeField(
-                auto_now_add=True, default=django.utils.timezone.now
-            ),
+            model_name='announcements',
+            name='Time',
+            field=models.TimeField(auto_now_add=True, default=django.utils.timezone.now),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name="announcements",
-            name="Title",
+            model_name='announcements',
+            name='Title',
             field=models.TextField(),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name="attendance",
-            name="date",
+            model_name='attendance',
+            name='date',
             field=models.DateField(default=django.utils.timezone.now),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name="attendance",
-            name="intime",
+            model_name='attendance',
+            name='intime',
             field=models.TimeField(default=django.utils.timezone.now),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name="attendance",
-            name="outtime",
+            model_name='attendance',
+            name='outtime',
             field=models.TimeField(default=django.utils.timezone.now),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name="mask_in_public",
-            name="number_of_violations",
+            model_name='mask_in_public',
+            name='number_of_violations',
             field=models.IntegerField(),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name="mask_in_public",
-            name="photo_violation",
-            field=models.ImageField(upload_to="mask_in_public"),
+            model_name='mask_in_public',
+            name='photo_violation',
+            field=models.ImageField(upload_to='mask_in_public'),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name="mask_in_public",
-            name="time",
-            field=models.TimeField(
-                auto_now_add=True, default=django.utils.timezone.now
-            ),
+            model_name='mask_in_public',
+            name='time',
+            field=models.TimeField(auto_now_add=True, default=django.utils.timezone.now),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name="mask_in_public",
-            name="date",
+            model_name='mask_in_public',
+            name='date',
             field=models.DateField(auto_now_add=True),
         ),
     ]
