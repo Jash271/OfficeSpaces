@@ -1,4 +1,3 @@
-// Include RadioHead Amplitude Shift Keying Library
 #include <RH_ASK.h>
 // Include dependant SPI Library 
 #include <SPI.h> 
@@ -24,21 +23,30 @@ void loop()
     uint8_t buf[1];
     uint8_t buflen = sizeof(buf);
     // Check if received packet is correct size
-    if (rf_driver.recv(buf, &buflen))
+    if (rf_driver.recv(buf, &buflen) && Serial.available())
     {
       int val = strcmp((char *)buf,"1");
       Serial.println(val);
 
       // Message received with valid checksum
       
-      Serial.println((char *)buf); 
-
-      if( !val ){
+      int c = Serial.read();
+      
+      if( !val && c == '1'){
+        
         digitalWrite(LED,HIGH);
-        Serial.println("okayy");    
+        Serial.println("okayy");   
+
+         
       }
       else{
         digitalWrite(LED,LOW);
       }
     }
 }
+
+
+
+
+
+
