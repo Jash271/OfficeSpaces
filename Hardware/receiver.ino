@@ -19,34 +19,38 @@ digitalWrite (LED, LOW);
  
 void loop()
 {
+    while(Serial.available()){
     // Set buffer to size of expected message
     uint8_t buf[1];
     uint8_t buflen = sizeof(buf);
     // Check if received packet is correct size
-    if (rf_driver.recv(buf, &buflen) && Serial.available())
+    
+    int c = Serial.read();
+
+    if (rf_driver.recv(buf, &buflen))
     {
       int val = strcmp((char *)buf,"1");
-      Serial.println(val);
+      
 
       // Message received with valid checksum
-      
-      int c = Serial.read();
-      
+            
       if( !val && c == '1'){
         
         digitalWrite(LED,HIGH);
         Serial.println("okayy");   
+        delay(500);
 
          
       }
       else{
         digitalWrite(LED,LOW);
       }
+      
     }
+    else{
+        digitalWrite(LED,LOW);
+        
+        }
+    
 }
-
-
-
-
-
-
+}
