@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 import datetime
+
 # Create your models here.
 
 
@@ -40,7 +41,6 @@ class Mask_in_public(models.Model):
 class Attendance(models.Model):
     date = models.DateField()
     intime = models.TimeField()
-    outtime = models.TimeField()
     user_ref = models.ForeignKey(User, on_delete=models.CASCADE)
     
 class Announcements(models.Model):

@@ -21,3 +21,11 @@ class AllAnnouncmentSerializer(serializers.ModelSerializer):
     class Meta:
         model=Announcements
         fields=["File","description","publisher","Date","Time","Title"]
+
+
+class AttendanceSerializer(serializers.ModelSerializer):
+    user=userSerializers(many=False, read_only=True)
+
+    class Meta:
+        model=Attendance
+        fields=["intime","outtime","user_ref","date"]    

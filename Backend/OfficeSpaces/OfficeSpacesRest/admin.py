@@ -10,8 +10,11 @@ class SocialDistancingViolation(admin.ModelAdmin):
 class AnnouncementCheck(admin.ModelAdmin):
     readonly_fields = ('Date','Time')
 
+class AttendanceCheck(admin.ModelAdmin):
+    readonly_field = ('date','intime')
 
 admin.site.register(Profile)
 admin.site.register(Social_distancing_violation,SocialDistancingViolation)
 admin.site.register(Announcements,AnnouncementCheck)
 admin.site.register(Mask_in_public)
+admin.site.register(Attendance,AttendanceCheck)

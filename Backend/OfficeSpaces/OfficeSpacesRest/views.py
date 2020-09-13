@@ -12,6 +12,7 @@ from django.utils import timezone
 import datetime
 from django.contrib.auth.decorators import login_required
 from .models import *
+from .models import Attendance
 import base64
 from django.utils.html import escape
 import ast
@@ -22,7 +23,7 @@ import pandas as pd
 from rest_framework.authtoken.views import APIView
 from rest_framework.response import Response
 import calendar
-
+import pytz
 
 class SignIn(generics.GenericAPIView):
     def post(self, request):
@@ -137,11 +138,15 @@ class ChartData(generics.GenericAPIView):
             for i in range(1, calendar.monthrange(int(year), int(month))[1]+1):
                 social_distancing_list.append(0)
                 mask_list.append(0)
+            if(len(month)==1):
+                month_='0'+month
             for vio in sdl:
-                social_distancing_list[int(str(vio['date'])[
+                if(str(vio['date'])[5:7] == month_):
+                    social_distancing_list[int(str(vio['date'])[
                                            8:])-1] = social_distancing_list[int(str(vio['date'])[8:])-1]+vio['number_of_violations']
             for vio in mip:
-                mask_list[int(str(vio['date'])[
+                if(str(vio['date'])[5:7]==month_):
+                    mask_list[int(str(vio['date'])[
                               8:])-1] = mask_list[int(str(vio['date'])[8:])-1]+vio['number_of_violations']
             social_distancing = sum(social_distancing_list)
             mask = sum(mask_list)
@@ -152,3 +157,16 @@ class ChartData(generics.GenericAPIView):
             "Mask_Violation": mask_list,
         }
         return JsonResponse(message, status=status.HTTP_200_OK)
+
+class AddAttendance(generics.GenericAPIView):
+    authentication_classes = [TokenAuthentication]
+    def post(self,request):
+        timestamp=str(datetime.datetime.now(pytz.timezone('Asia/Kolkata')))
+        date=timestamp[0:10]
+        time=timestamp[11:-13]
+        time_=datetime.datetime.strptime(time,'%H:%M:%S').time()
+        date_=datetime.datetime.strptime(date,'%Y-%m-%d').date()
+        u=Attendance(user_ref=request.user,date=date_,intime=time_)
+        u.save()
+        return JsonResponse("OK", status=status.HTTP_200_OK,safe=False)
+
