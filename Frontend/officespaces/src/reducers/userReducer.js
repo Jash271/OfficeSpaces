@@ -1,9 +1,10 @@
-import { USER_ERROR, LOGIN_USER, LOGOUT } from '../actions/types';
+import { USER_ERROR, LOGIN_USER, LOGOUT, GET_VIOLATIONS } from '../actions/types';
 
 const initialState = {
     user: null,
     error: null,
-    isAuthenticated: false
+    isAuthenticated: false,
+    violations: null
 }
 
 export default (state = initialState, action) => {
@@ -27,6 +28,11 @@ export default (state = initialState, action) => {
                 ...state,
                 user: null,
                 isAuthenticated: false
+            }
+        case GET_VIOLATIONS:
+            return {
+                ...state,
+                violations: action.payload
             }
         default:
             return { ...state }

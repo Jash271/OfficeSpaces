@@ -49,7 +49,7 @@ export default class componentName extends Component {
     console.log(this.state)
     var myHeaders = new Headers();
     let token = localStorage.getItem('Token')
-    myHeaders.append("Authorization", `Token ${token}`);
+    myHeaders.append("Authorization", `Token 23d59ee86227db5d94974ee692fe5b29c050c81c`);
     var formdata = new FormData();
     formdata.append("Desc", this.state.Description);
     formdata.append("File", this.state.File);
