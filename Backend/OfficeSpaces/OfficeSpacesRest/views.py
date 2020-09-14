@@ -145,6 +145,11 @@ class ChartData(generics.GenericAPIView):
             for i in range(1, calendar.monthrange(int(year), int(month))[1] + 1):
                 social_distancing_list.append(0)
                 mask_list.append(0)
+
+            month_ = ""
+            if len(month) == 1:
+                month_ = "0" + month
+
             if len(month) == 1:
                 month_ = "0" + month
 
@@ -173,6 +178,19 @@ class ChartData(generics.GenericAPIView):
         }
         return JsonResponse(message, status=status.HTTP_200_OK)
 
+
+class AddAttendance(generics.GenericAPIView):
+    authentication_classes = [TokenAuthentication]
+
+    def post(self, request):
+        timestamp = str(datetime.datetime.now(pytz.timezone("Asia/Kolkata")))
+        date = timestamp[0:10]
+        time = timestamp[11:-13]
+        time_ = datetime.datetime.strptime(time, "%H:%M:%S").time()
+        date_ = datetime.datetime.strptime(date, "%Y-%m-%d").date()
+        u = Attendance(user_ref=request.user, date=date_, intime=time_)
+        u.save()
+        return JsonResponse("OK", status=status.HTTP_200_OK, safe=False)
 
 
 class GetAttendance(generics.GenericAPIView):
