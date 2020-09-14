@@ -147,6 +147,10 @@ class ChartData(generics.GenericAPIView):
                 mask_list.append(0)
             if len(month) == 1:
                 month_ = "0" + month
+
+            else:
+                month_ = month
+
             for vio in sdl:
                 if str(vio["date"])[5:7] == month_:
                     social_distancing_list[int(str(vio["date"])[8:]) - 1] = (
@@ -170,8 +174,19 @@ class ChartData(generics.GenericAPIView):
         return JsonResponse(message, status=status.HTTP_200_OK)
 
 
-class AddAttendance(generics.GenericAPIView):
+
+class GetAttendance(generics.GenericAPIView):
     authentication_classes = [TokenAuthentication]
+
+    def get(self, request):
+        attendace = Attendance.objects.filter(user_ref=request.user).values("date")
+        attendace_list = []
+        for i in attendace:
+            attendace_list.append((str(i["date"])))
+        message = {
+            "Attendance_List": attendace_list,
+        }
+        return JsonResponse(message, status=status.HTTP_200_OK)
 
     def post(self, request):
         timestamp = str(datetime.datetime.now(pytz.timezone("Asia/Kolkata")))
