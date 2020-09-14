@@ -215,13 +215,11 @@ class GetAttendance(generics.GenericAPIView):
         u = Attendance(user_ref=request.user, date=date_, intime=time_)
         u.save()
         return JsonResponse("OK", status=status.HTTP_200_OK, safe=False)
-    
-    
-    
-    
+
+
 class FetchAttendance(generics.GenericAPIView):
-    def get(self,request,u_name):
-        u=User.objects.get(username=u_name)
+    def get(self, request, u_name):
+        u = User.objects.get(username=u_name)
         attendace = Attendance.objects.filter(user_ref=u).values("date")
         attendace_list = []
         for i in attendace:
