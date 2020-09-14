@@ -20,6 +20,9 @@ const Navbar = ({ isAuthenticated, user }) => {
                                 <li>
                                     <Link to='/dashboard' className="waves-effect">Dashboard</Link>
                                 </li>
+                                <li>
+                                    <Link to='/violations' className="waves-effect">Violations</Link>
+                                </li>
                                 {isAuthenticated ? (
                                     < Fragment>
                                         <li>
