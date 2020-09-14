@@ -25,6 +25,7 @@ from rest_framework.response import Response
 import calendar
 import pytz
 
+
 class SignIn(generics.GenericAPIView):
     def post(self, request):
         username = request.data["Username"]
@@ -36,7 +37,7 @@ class SignIn(generics.GenericAPIView):
 
             login(request, user)
             try:
-                p = Profile.objects.first().get(user_ref=request.user)
+                p = Profile.objects.get(user_ref=request.user)
                 print("1")
 
                 message = {
@@ -52,6 +53,7 @@ class SignIn(generics.GenericAPIView):
                 return JsonResponse(message, status=status.HTTP_200_OK)
 
             except:
+
                 message = {"Flag": 0, "Message": "There was some error"}
                 return JsonResponse(message, status=status.HTTP_400_BAD_REQUEST)
 
@@ -77,12 +79,12 @@ class EmployeeInstance(generics.RetrieveUpdateDestroyAPIView):
 
 class Add_Violation(generics.GenericAPIView):
     def post(self, request):
-        photo = request.data['photo']
-        nv = request.data['nv']
-        sv = Social_distancing_violation(
-            photo_violation=photo, number_of_violations=nv)
+        photo = request.data["photo"]
+        nv = request.data["nv"]
+        sv = Social_distancing_violation(photo_violation=photo, number_of_violations=nv)
         sv.save()
         return JsonResponse("ok", safe=False)
+
 
 #
 
@@ -94,15 +96,17 @@ class AddAnnouncement(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         try:
 
-            Title = request.data['Title']
-            File = request.data['File']
-            Desc = request.data['Desc']
-            A = Announcements(Title=Title, File=File,
-                              description=Desc, publisher=request.user)
+            Title = request.data["Title"]
+            File = request.data["File"]
+            Desc = request.data["Desc"]
+            A = Announcements(
+                Title=Title, File=File, description=Desc, publisher=request.user
+            )
             A.save()
             return JsonResponse("Ok", status=status.HTTP_201_CREATED, safe=False)
         except:
             return JsonResponse("error", status=status.HTTP_400_BAD_REQUEST, safe=False)
+
 
 #
 
@@ -115,39 +119,46 @@ class AllAnnouncement(generics.ListAPIView):
     serializer_class = AllAnnouncmentSerializer
     queryset = Announcements.objects.all()
 
+
 class EmployeeAnnoucement(generics.ListAPIView):
-    authentication_classes=[TokenAuthentication]
-    permission_classes={
-      Permit1,
+    authentication_classes = [TokenAuthentication]
+    permission_classes = {
+        Permit1,
     }
     serializer_class = EmployeeSerializer
     emp_announcement = Profile.objects.filter()
+
 
 class ChartData(generics.GenericAPIView):
     authentication_classes = [TokenAuthentication]
 
     def post(self, request):
-        month = request.data['month']
-        year = request.data['year']
+        month = request.data["month"]
+        year = request.data["year"]
         if month is not None:
             social_distancing_list = []
             mask_list = []
             sdl = Social_distancing_violation.objects.values(
-                'number_of_violations', 'date')
-            mip = Mask_in_public.objects.values('number_of_violations', 'date')
-            for i in range(1, calendar.monthrange(int(year), int(month))[1]+1):
+                "number_of_violations", "date"
+            )
+            mip = Mask_in_public.objects.values("number_of_violations", "date")
+            for i in range(1, calendar.monthrange(int(year), int(month))[1] + 1):
                 social_distancing_list.append(0)
                 mask_list.append(0)
-            if(len(month)==1):
-                month_='0'+month
+            if len(month) == 1:
+                month_ = "0" + month
             for vio in sdl:
-                if(str(vio['date'])[5:7] == month_):
-                    social_distancing_list[int(str(vio['date'])[
-                                           8:])-1] = social_distancing_list[int(str(vio['date'])[8:])-1]+vio['number_of_violations']
+                if str(vio["date"])[5:7] == month_:
+                    social_distancing_list[int(str(vio["date"])[8:]) - 1] = (
+                        social_distancing_list[int(str(vio["date"])[8:]) - 1]
+                        + vio["number_of_violations"]
+                    )
             for vio in mip:
-                if(str(vio['date'])[5:7]==month_):
-                    mask_list[int(str(vio['date'])[
-                              8:])-1] = mask_list[int(str(vio['date'])[8:])-1]+vio['number_of_violations']
+                if str(vio["date"])[5:7] == month_:
+                    mask_list[int(str(vio["date"])[8:]) - 1] = (
+                        mask_list[int(str(vio["date"])[8:]) - 1]
+                        + vio["number_of_violations"]
+                    )
             social_distancing = sum(social_distancing_list)
             mask = sum(mask_list)
         message = {
@@ -158,15 +169,16 @@ class ChartData(generics.GenericAPIView):
         }
         return JsonResponse(message, status=status.HTTP_200_OK)
 
+
 class AddAttendance(generics.GenericAPIView):
     authentication_classes = [TokenAuthentication]
-    def post(self,request):
-        timestamp=str(datetime.datetime.now(pytz.timezone('Asia/Kolkata')))
-        date=timestamp[0:10]
-        time=timestamp[11:-13]
-        time_=datetime.datetime.strptime(time,'%H:%M:%S').time()
-        date_=datetime.datetime.strptime(date,'%Y-%m-%d').date()
-        u=Attendance(user_ref=request.user,date=date_,intime=time_)
-        u.save()
-        return JsonResponse("OK", status=status.HTTP_200_OK,safe=False)
 
+    def post(self, request):
+        timestamp = str(datetime.datetime.now(pytz.timezone("Asia/Kolkata")))
+        date = timestamp[0:10]
+        time = timestamp[11:-13]
+        time_ = datetime.datetime.strptime(time, "%H:%M:%S").time()
+        date_ = datetime.datetime.strptime(date, "%Y-%m-%d").date()
+        u = Attendance(user_ref=request.user, date=date_, intime=time_)
+        u.save()
+        return JsonResponse("OK", status=status.HTTP_200_OK, safe=False)
