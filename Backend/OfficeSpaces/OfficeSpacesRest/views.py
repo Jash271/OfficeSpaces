@@ -37,7 +37,7 @@ class SignIn(generics.GenericAPIView):
 
             login(request, user)
             try:
-                p = Profile.objects.first().get(user_ref=request.user)
+                p = Profile.objects.get(user_ref=request.user)
                 print("1")
 
                 message = {
@@ -53,6 +53,7 @@ class SignIn(generics.GenericAPIView):
                 return JsonResponse(message, status=status.HTTP_200_OK)
 
             except:
+
                 message = {"Flag": 0, "Message": "There was some error"}
                 return JsonResponse(message, status=status.HTTP_400_BAD_REQUEST)
 
@@ -144,9 +145,17 @@ class ChartData(generics.GenericAPIView):
             for i in range(1, calendar.monthrange(int(year), int(month))[1] + 1):
                 social_distancing_list.append(0)
                 mask_list.append(0)
+
             month_ = ""
             if len(month) == 1:
                 month_ = "0" + month
+
+            if len(month) == 1:
+                month_ = "0" + month
+
+            else:
+                month_ = month
+
             for vio in sdl:
                 if str(vio["date"])[5:7] == month_:
                     social_distancing_list[int(str(vio["date"])[8:]) - 1] = (
@@ -183,3 +192,41 @@ class AddAttendance(generics.GenericAPIView):
         u.save()
         return JsonResponse("OK", status=status.HTTP_200_OK, safe=False)
 
+
+class GetAttendance(generics.GenericAPIView):
+    authentication_classes = [TokenAuthentication]
+
+    def get(self, request):
+        attendace = Attendance.objects.filter(user_ref=request.user).values("date")
+        attendace_list = []
+        for i in attendace:
+            attendace_list.append((str(i["date"])))
+        message = {
+            "Attendance_List": attendace_list,
+        }
+        return JsonResponse(message, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        timestamp = str(datetime.datetime.now(pytz.timezone("Asia/Kolkata")))
+        date = timestamp[0:10]
+        time = timestamp[11:-13]
+        time_ = datetime.datetime.strptime(time, "%H:%M:%S").time()
+        date_ = datetime.datetime.strptime(date, "%Y-%m-%d").date()
+        u = Attendance(user_ref=request.user, date=date_, intime=time_)
+        u.save()
+        return JsonResponse("OK", status=status.HTTP_200_OK, safe=False)
+    
+    
+    
+    
+class FetchAttendance(generics.GenericAPIView):
+    def get(self,request,u_name):
+        u=User.objects.get(username=u_name)
+        attendace = Attendance.objects.filter(user_ref=u).values("date")
+        attendace_list = []
+        for i in attendace:
+            attendace_list.append((str(i["date"])))
+        message = {
+            "Attendance_List": attendace_list,
+        }
+        return JsonResponse(message, status=status.HTTP_200_OK)
