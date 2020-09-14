@@ -5,13 +5,18 @@ import ApartmentIcon from "@material-ui/icons/Apartment";
 import WorkIcon from "@material-ui/icons/Work";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Attendance from "./Attendance";
-import { connect } from 'react-redux'
+import { connect } from "react-redux";
 
 const employeeDetail = ({ current }) => {
   return (
     <div style={{ margin: "30px" }}>
       <div className="center">
-        <h1><span className="grey-text">Employee</span> <span className="purple-text">details</span></h1>
+        <h1>
+          <span className="grey-text">Employee </span>
+          <span className="purple-text">
+            Details
+          </span>
+        </h1>
       </div>
       <div className="row">
         <div className="card-medium">
@@ -47,7 +52,9 @@ const employeeDetail = ({ current }) => {
                       >
                         <PersonIcon /> Employee-Name:
                       </span>
-                      <span style={{ color: "purple" }}>{current.first_name} {current.last_name}</span>
+                      <span style={{ color: "purple" }}>
+                        {current.first_name} {current.last_name}
+                      </span>
                     </h5>
                     <h5 className="card-title">
                       <span
@@ -73,7 +80,9 @@ const employeeDetail = ({ current }) => {
                       >
                         <AccountCircleIcon /> Username:
                       </span>
-                      <span style={{ color: "purple" }}>{current.username}</span>
+                      <span style={{ color: "purple" }}>
+                        {current.username}
+                      </span>
                     </h5>
                   </Grid>
                 </Grid>
@@ -90,7 +99,7 @@ const employeeDetail = ({ current }) => {
 };
 
 const mapStateToProps = (state) => ({
-  current: state.employee.current
-})
+  current: state.employee.current,
+});
 
 export default connect(mapStateToProps, null)(employeeDetail);

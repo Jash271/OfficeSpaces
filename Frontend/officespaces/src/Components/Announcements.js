@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useRef } from 'react';
-import Card from './Card';
-import { connect } from 'react-redux';
-import { getAnnouncements } from '../actions/announcementActions';
+import React, { useEffect, useState, useRef } from "react";
+import Card from "./Card";
+import { connect } from "react-redux";
+import { getAnnouncements } from "../actions/announcementActions";
 import {
   filterAnnouncement,
   clearFilterAnnouncement,
-} from '../actions/announcementActions';
+} from "../actions/announcementActions";
 
 const Announcements = ({
   totalAnn,
@@ -15,10 +15,10 @@ const Announcements = ({
   filtered,
 }) => {
   const [announcements, setAnnouncements] = useState([]);
-  const text = useRef('');
+  const text = useRef("");
 
   const onChange = (e) => {
-    if (text.current.value !== '') {
+    if (text.current.value !== "") {
       filterAnnouncement(e.target.value);
     } else {
       clearFilterAnnouncement();
@@ -26,23 +26,22 @@ const Announcements = ({
   };
 
   const onClickClose = () => {
-    text.current.value = '';
+    text.current.value = "";
     clearFilterAnnouncement();
   };
 
   useEffect(() => {
-    const word = 'Token ';
-    const token = `Token ${localStorage.getItem('Token')}`;
+    const token = `Token ${localStorage.getItem("Token")}`;
     var myHeaders = new Headers();
-    myHeaders.append('Authorization', token);
-    myHeaders.append('Content-type', 'application/json');
+    myHeaders.append("Authorization", token);
+    myHeaders.append("Content-type", "application/json");
 
     var requestOptions = {
-      method: 'GET',
+      method: "GET",
       headers: myHeaders,
-      redirect: 'follow',
+      redirect: "follow",
     };
-    fetch('http://localhost:8000/operations/AllAnnouncements', requestOptions)
+    fetch("http://localhost:8000/operations/AllAnnouncements", requestOptions)
       .then((res) => {
         return res.json();
       })
@@ -62,34 +61,36 @@ const Announcements = ({
 
   return (
     <div>
-      <div className='center'>
+      <div className="center">
         <h1>
-          <span className='grey-text'>Our</span>{' '}
-          <span className='purple-text'>Announcements</span>{' '}
+          <span className="grey-text">Our</span>
+          {" "}
+          <span className="purple-text">Announcements</span>
+          {" "}
         </h1>
       </div>
-      <div className='container s12 m10'>
+      <div className="container s12 m10">
         <nav
-          className='purple darken-2'
+          className="purple darken-2"
           style={{
-            marginBottom: '30px',
+            marginBottom: "30px",
           }}
         >
-          <div class='nav-wrapper'>
+          <div class="nav-wrapper">
             <form>
-              <div class='input-field'>
+              <div class="input-field">
                 <input
-                  id='search'
-                  type='search'
-                  placeholder='Search Employee..'
+                  id="search"
+                  type="search"
+                  placeholder="Search Employee.."
                   ref={text}
                   onChange={onChange}
                   required
                 />
-                <label class='label-icon' for='search'>
-                  <i class='material-icons'>search</i>
+                <label class="label-icon" for="search">
+                  <i class="material-icons">search</i>
                 </label>
-                <i class='material-icons' onClick={onClickClose}>
+                <i class="material-icons" onClick={onClickClose}>
                   close
                 </i>
               </div>
@@ -97,7 +98,7 @@ const Announcements = ({
           </div>
         </nav>
       </div>
-      <div className='row'>
+      <div className="row">
         {totalAnn &&
           (filtered ? <Card data={filtered} /> : <Card data={totalAnn} />)}
       </div>
