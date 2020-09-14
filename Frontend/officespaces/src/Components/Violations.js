@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux'
 import { getViolations } from '../actions/userActions'
-import { Bar, Line } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 
 const Violations = ({ getViolations, violations }) => {
 

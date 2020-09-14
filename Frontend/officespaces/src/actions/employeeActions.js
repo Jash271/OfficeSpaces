@@ -3,9 +3,10 @@ import axios from 'axios';
 
 export const getEmployees = () => async dispatch => {
     try {
+        const token = localStorage.getItem('Token')
         const res = await axios.get('http://127.0.0.1:8000/operations/Employees', {
             headers: {
-                'Authorization': 'Token 23d59ee86227db5d94974ee692fe5b29c050c81c'
+                'Authorization': `Token ${token}`
             }
         });
 
