@@ -1,22 +1,21 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import React from "react";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
 
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 toast.configure({
-  position: 'top-right',
-  autoClose: '2000',
+  position: "top-right",
+  autoClose: "2000",
   hideProgressBar: false,
   newestOnTop: false,
   closeOnClick: true,
@@ -26,13 +25,12 @@ toast.configure({
   pauseOnHover: true,
 });
 
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
 
   avatar: {
@@ -41,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
 
@@ -54,15 +52,15 @@ export default function SignIn(props) {
   const classes = useStyles();
 
   const [values, setValues] = React.useState({
-    username: '',
-    password: '',
+    username: "",
+    password: "",
   });
 
   function notify(text, type) {
     switch (type) {
-      case 'info':
+      case "info":
         toast.info(`👍${text}`, {
-          position: 'top-right',
+          position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -70,9 +68,9 @@ export default function SignIn(props) {
           draggable: true,
         });
         break;
-      case 'error':
+      case "error":
         toast.error(`👎${text}`, {
-          position: 'top-right',
+          position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -83,53 +81,52 @@ export default function SignIn(props) {
     }
   }
 
-  const handleChange = (prop) => (event) => {
-
-    setValues({
-      ...values,
-      [prop]: event.target.value,
-    });
-  };
+  const handleChange = (prop) =>
+    (event) => {
+      setValues({
+        ...values,
+        [prop]: event.target.value,
+      });
+    };
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
-
     var myHeaders = new Headers();
 
     var formdata = new FormData();
-    formdata.append("Username", values['username']);
-    formdata.append("Password", values['password']);
+    formdata.append("Username", values["username"]);
+    formdata.append("Password", values["password"]);
     var requestOptions = {
-      method: 'POST',
+      method: "POST",
       headers: myHeaders,
       body: formdata,
-      redirect: 'follow'
+      redirect: "follow",
     };
-    let res = await fetch("http://127.0.0.1:8000/operations/SignIn", requestOptions)
-    let data = await res.json()
+    let res = await fetch(
+      "http://127.0.0.1:8000/operations/SignIn",
+      requestOptions,
+    );
+    let data = await res.json();
 
     if (data.Flag === 1) {
-      localStorage.setItem('Token', data.Token);
-      localStorage.setItem('Status', 'LoggedIn');
-      localStorage.setItem('Image', data.Photo);
-      localStorage.setItem('Name', data.Name);
-      localStorage.setItem('m_id', data.user_id);
-      localStorage.setItem('Is_Manager', data.Is_Manager);
+      localStorage.setItem("Token", data.Token);
+      localStorage.setItem("Status", "LoggedIn");
+      localStorage.setItem("Image", data.Photo);
+      localStorage.setItem("Name", data.Name);
+      localStorage.setItem("m_id", data.user_id);
+      localStorage.setItem("Is_Manager", data.Is_Manager);
       localStorage.setItem("First_Name", data.First_Name);
       localStorage.setItem("Last_Name", data.Last_Name);
-      notify('  Login Successful!!!', 'info');
-      let x = localStorage.getItem('Token')
-      console.log(x)
+      notify("  Login Successful!!!", "info");
+      let x = localStorage.getItem("Token");
+      console.log(x);
 
-      props.history.push('/announcement');
+      props.history.push("/announcement");
+    } else {
+      notify(data.Message, "error");
     }
-    else {
-      notify(data.Message, 'error');
-
-    }
-  }
-
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -137,10 +134,12 @@ export default function SignIn(props) {
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
-        </Avatar>{' '}
+        </Avatar>
+        {" "}
         <Typography component="h1" variant="h5">
           Sign in
-        </Typography>{' '}
+        </Typography>
+        {" "}
         <form className={classes.form} noValidate>
           <TextField
             variant="outlined"
@@ -151,8 +150,8 @@ export default function SignIn(props) {
             label="Username"
             name="username"
             autoComplete="admin"
-            onChange={handleChange('username')}
-            id='username'
+            onChange={handleChange("username")}
+            id="username"
             autoFocus
           />
           <TextField
@@ -164,9 +163,9 @@ export default function SignIn(props) {
             label="Password"
             type="password"
             id="password"
-            onChange={handleChange('password')}
+            onChange={handleChange("password")}
             autoComplete="current-password"
-            id='password'
+            id="password"
           />
           <Button
             type="submit"
@@ -176,17 +175,23 @@ export default function SignIn(props) {
             className={classes.submit}
             onClick={submitHandler}
           >
-            Sign In{' '}
-          </Button>{' '}
+            Sign In{" "}
+          </Button>
+          {" "}
           <Grid container>
             <Grid item xs>
               <Link href="/forgotpass" variant="body2">
                 Forgot password ?
-              </Link>{' '}
-            </Grid>{' '}
-          </Grid>{' '}
-        </form>{' '}
-      </div>{' '}
+              </Link>
+              {" "}
+            </Grid>
+            {" "}
+          </Grid>
+          {" "}
+        </form>
+        {" "}
+      </div>
+      {" "}
     </Container>
   );
 }
