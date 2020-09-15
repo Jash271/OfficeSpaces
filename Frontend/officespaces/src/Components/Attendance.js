@@ -5,21 +5,25 @@ import "@mobiscroll/react/dist/css/mobiscroll.min.css";
 class Attendance extends React.Component {
   constructor(props) {
     super(props);
-
+    console.log(this.props);
     this.state = {
-      myEvents: [{
-        "start": "2020-07-23",
-        "end": "2020-07-23",
-        "text": "P",
-      }, {
-        "start": "2020-07-29",
-        "end": "2020-07-30",
-        "text": "P",
-      }, {
-        "start": "2020-08-29",
-        "end": "2020-08-30",
-        "text": "P",
-      }],
+      myEvents: [
+        {
+          start: "2020-07-23",
+          end: "2020-07-23",
+          text: "P",
+        },
+        {
+          start: "2020-07-29",
+          end: "2020-07-30",
+          text: "P",
+        },
+        {
+          start: "2020-08-29",
+          end: "2020-08-30",
+          text: "P",
+        },
+      ],
     };
   }
   onEventSelect = (event, inst) => {
@@ -40,7 +44,7 @@ class Attendance extends React.Component {
           },
         }}
         onEventSelect={this.onEventSelect}
-        data={this.state.myEvents}
+        data={this.props.attendance}
       />
     );
   }

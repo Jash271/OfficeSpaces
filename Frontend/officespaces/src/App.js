@@ -12,7 +12,8 @@ import { Provider } from "react-redux";
 import store from "./store";
 import "materialize-css/dist/css/materialize.min.css";
 import CartBtns from "./Components/CartBtns";
-import Violations from './Components/Violations'
+import Violations from "./Components/Violations";
+import WebView from "./Components/WebView";
 // import M from 'materialize-css/dist/js/materialize.min.js';
 
 function App() {
@@ -32,6 +33,8 @@ function App() {
           <Route exact path="/add_announcement" exact component={Form} />
           <Route exact path="/employee_detail" component={EmployeeDetail} />
           <Route exact path="/violations" component={Violations} />
+          <Route exact path="/webview/:employeeName" component={WebView} />
+
         </Switch>
         <CartBtns />
       </BrowserRouter>
