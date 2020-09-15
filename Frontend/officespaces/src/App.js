@@ -21,7 +21,6 @@ function App() {
   //   //Initializes materialize js
   //   M.AutoInit();
   // })
-
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -35,6 +34,7 @@ function App() {
           <Route exact path="/employee_detail" component={EmployeeDetail} />
           <Route exact path="/violations" component={Violations} />
           <Route exact path="/webview/:employeeName" component={WebView} />
+
         </Switch>
         <CartBtns />
       </BrowserRouter>

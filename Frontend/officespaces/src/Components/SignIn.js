@@ -122,7 +122,7 @@ export default function SignIn(props) {
       let x = localStorage.getItem("Token");
       console.log(x);
 
-      props.history.push("/announcement");
+      props.history.push("/dashboard");
     } else {
       notify(data.Message, "error");
     }

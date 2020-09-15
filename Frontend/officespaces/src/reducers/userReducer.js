@@ -1,21 +1,20 @@
-import { USER_ERROR, LOGIN_USER, LOGOUT, GET_VIOLATIONS } from '../actions/types';
+import { USER_ERROR, LOGIN_USER, LOGOUT, GET_VIOLATIONS, DUMMY, REMOVE_DUMMY } from '../actions/types';
 
 const initialState = {
     user: null,
     error: null,
     isAuthenticated: false,
-    violations: null
+    violations: null,
+    dummy: true
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
         case LOGIN_USER:
-            localStorage.setItem('token', action.payload.token)
             return {
                 ...state,
-                user: action.payload.doctor,
+                user: action.payload,
                 isAuthenticated: true,
-                current: action.payload.doctor
             }
         case USER_ERROR:
             return {
@@ -33,6 +32,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 violations: action.payload
+            }
+        case DUMMY:
+            return {
+                ...state,
+                dummy: false
             }
         default:
             return { ...state }

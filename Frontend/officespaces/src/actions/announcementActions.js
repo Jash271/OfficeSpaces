@@ -1,7 +1,5 @@
 import { GET_ANNOUNCEMENTS, ANNOUNCEMENT_ERROR, FILTER_ANNOUNCEMENTS, CLEAR_ANN } from './types'
 
-import axios from 'axios';
-
 export const getAnnouncements = (data) => async dispatch => {
     try {
         dispatch({

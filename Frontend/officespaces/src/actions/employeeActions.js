@@ -7,13 +7,14 @@ import {
 } from "./types";
 import axios from "axios";
 
-export const getEmployees = () => async (dispatch) => {
-  try {
-    const res = await axios.get("http://127.0.0.1:8000/operations/Employees", {
-      headers: {
-        Authorization: "Token 94106f053f005f73b9204f9ab1b208ae8a46bed1",
-      },
-    });
+export const getEmployees = () => async dispatch => {
+    try {
+        const token = localStorage.getItem('Token')
+        const res = await axios.get('http://127.0.0.1:8000/operations/Employees', {
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        });
 
     dispatch({
       type: GET_EMPLOYEES,

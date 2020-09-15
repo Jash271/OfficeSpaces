@@ -32,8 +32,10 @@ const EmployeeDetail = ({ current }) => {
     <div style={{ margin: "30px" }}>
       <div className="center">
         <h1>
-          <span className="grey-text">Employee</span>{" "}
-          <span className="purple-text">details</span>
+          <span className="grey-text">Employee </span>
+          <span className="purple-text">
+            Details
+          </span>
         </h1>
       </div>
       <div className="row">
