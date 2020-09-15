@@ -17,7 +17,9 @@ const Card = (props) => {
                 </div>
                 <div className="card-action">
                   <i class="material-icons prefix purple-text">attach_file</i>
-                  <a href={d.File}>Document Reference</a>
+                  <a href={d.File} target="_blank">
+                    Document Reference
+                  </a>
                 </div>
               </div>
             </div>
