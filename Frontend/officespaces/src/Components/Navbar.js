@@ -1,13 +1,21 @@
 import React, { useEffect, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-
-const Navbar = ({ isAuthenticated, user, dummy }) => {
+import { logout } from '../actions/userActions'
+import { useHistory } from 'react-router-dom'
+const Navbar = ({ isAuthenticated, user, dummy, logout }) => {
   useEffect(() => {
     document.addEventListener("DOMContentLoaded", function () {
       var elems = document.querySelectorAll(".sidenav");
     });
   });
+
+  let history = useHistory()
+  const logoutUser = () => {
+    logout();
+    history.push("/");
+  }
+
 
   return (
     !dummy &&
@@ -49,6 +57,12 @@ const Navbar = ({ isAuthenticated, user, dummy }) => {
                           Hello, {user.firstName} {user.lastName}
                         </span>
                       </li>
+                      <li>
+                        <a href='#!' onClick={logoutUser}>
+                          <i className="fas fa-sign-out-alt"></i>
+                          <span className="hide-sm"> Logout</span>
+                        </a>
+                      </li>
                     </Fragment>
                   )
                   : (
@@ -77,4 +91,4 @@ const mapStateToProps = (state) => ({
   dummy: state.user.dummy
 });
 
-export default connect(mapStateToProps, null)(Navbar);
+export default connect(mapStateToProps, { logout })(Navbar);

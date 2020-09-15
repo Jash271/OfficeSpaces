@@ -22,11 +22,13 @@ export default (state = initialState, action) => {
                 error: action.payload
             }
         case LOGOUT:
-            localStorage.removeItem('token');
+            // localStorage.removeItem('token');
+            localStorage.clear()
             return {
                 ...state,
                 user: null,
-                isAuthenticated: false
+                isAuthenticated: false,
+                dummy: true
             }
         case GET_VIOLATIONS:
             return {
