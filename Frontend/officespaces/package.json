@@ -15,6 +15,9 @@
         "materialize-css": "^1.0.0-rc.2",
         "react": "^16.13.1",
         "react-chartjs-2": "^2.10.0",
+        "react-circle": "^1.1.1",
+        "react-circular-progressbar": "^2.0.3",
+        "react-customizable-progressbar": "^1.0.1",
         "react-dom": "^16.13.1",
         "react-materialize": "^3.9.2",
         "react-redux": "^7.2.0",
@@ -22,6 +25,7 @@
         "react-router-dom": "^5.2.0",
         "react-scripts": "3.4.1",
         "react-toastify": "^6.0.8",
+        "reactjs-percentage-circle": "^1.0.0",
         "redux": "^4.0.5",
         "redux-devtools-extension": "^2.13.8",
         "redux-thunk": "^2.3.0"
@@ -48,6 +52,7 @@
         ]
     },
     "devDependencies": {
+        "@babel/plugin-transform-react-jsx-source": "^7.10.5",
         "@babel/plugin-transform-runtime": "^7.10.5",
         "@babel/preset-env": "^7.10.4",
         "@babel/runtime": "^7.10.5"
