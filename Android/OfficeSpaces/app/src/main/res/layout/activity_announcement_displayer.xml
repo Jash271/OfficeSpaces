@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AnnouncementDisplayer">
+
+    <TextView
+        android:id="@+id/disp_ann_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/list_announcement_head"
+        android:textColor="@color/colorBlack"
+        android:textSize="19sp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/top1"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        app:srcCompat="@drawable/ic_action_office" />
+
+    <TextView
+        android:id="@+id/disp_ann_publish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top1"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@+id/imageView2"
+        android:text="@string/list_announcement_publisher"
+        android:textColor="@color/colorBlue"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/disp_ann_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/disp_ann_head"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/list_announcement_time"
+        android:textColor="@color/colorAccent"
+        android:textStyle="italic" />
+
+    <View
+        android:id="@+id/top1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/disp_ann_time"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorAccent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/disp_ann_publish"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="7dp"
+        android:layout_toEndOf="@+id/imageView2"
+        android:text="@string/list_announcement_channel"
+        android:textColor="@color/colorBlack"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/disp_ann_message"
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:text="@string/announcement_message"
+        android:textColor="@color/colorBlack"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/disp_ann_message"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/announcement_attachment"
+        android:textColor="@color/colorBlack"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/disp_ann_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView6"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/announcement_link"
+        android:textColor="@color/colorBlue" />
+</RelativeLayout>
