@@ -254,5 +254,6 @@ class FetchAttendance(generics.GenericAPIView):
             "Sundays": count,
             "days_attended": attended,
             "Attendance_percentage": attendace_percentage,
+            "attendance_list":attendance_list
         }
         return JsonResponse(message, status=status.HTTP_200_OK)
