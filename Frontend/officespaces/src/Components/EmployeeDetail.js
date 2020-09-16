@@ -29,7 +29,7 @@ const EmployeeDetail = ({ current }) => {
     }
     setAttendance(dummy2);
     setPercentage(dummy.Attendance_percentage.toFixed(2))
-    console.log(dummy)
+    console.log(dummy);
   };
 
   useEffect(() => {
