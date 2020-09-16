@@ -62,7 +62,7 @@ export default class componentName extends Component {
       redirect: "follow",
     };
     let res = await fetch(
-      "http://jash10.pythonanywhere.com/operations/AddAnnouncement",
+      "https://jash10.pythonanywhere.com/operations/AddAnnouncement",
       requestOptions,
     );
     let data = await res.json();

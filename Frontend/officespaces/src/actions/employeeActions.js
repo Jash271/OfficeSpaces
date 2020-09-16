@@ -10,7 +10,7 @@ import axios from "axios";
 export const getEmployees = () => async dispatch => {
   try {
     const token = localStorage.getItem('Token')
-    const res = await axios.get('http://jash10.pythonanywhere.com/operations/Employees', {
+    const res = await axios.get('https://jash10.pythonanywhere.com/operations/Employees', {
       headers: {
         'Authorization': `Token ${token}`
       }

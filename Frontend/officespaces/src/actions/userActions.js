@@ -44,7 +44,7 @@ export const getViolations = (month, year) =>
         year,
       };
       const res = await axios.post(
-        "http://jash10.pythonanywhere.com/operations/violation-tracker",
+        "https://jash10.pythonanywhere.com/operations/violation-tracker",
         data,
         config,
       );
