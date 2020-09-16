@@ -22,7 +22,6 @@ export default (state = initialState, action) => {
                 error: action.payload
             }
         case LOGOUT:
-            // localStorage.removeItem('token');
             localStorage.clear()
             return {
                 ...state,

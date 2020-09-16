@@ -41,7 +41,7 @@ const Announcements = ({
       headers: myHeaders,
       redirect: "follow",
     };
-    fetch("http://localhost:8000/operations/AllAnnouncements", requestOptions)
+    fetch("https://jash10.pythonanywhere.com/operations/AllAnnouncements", requestOptions)
       .then((res) => {
         return res.json();
       })

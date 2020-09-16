@@ -8,13 +8,13 @@ import {
 import axios from "axios";
 
 export const getEmployees = () => async dispatch => {
-    try {
-        const token = localStorage.getItem('Token')
-        const res = await axios.get('http://127.0.0.1:8000/operations/Employees', {
-            headers: {
-                'Authorization': `Token ${token}`
-            }
-        });
+  try {
+    const token = localStorage.getItem('Token')
+    const res = await axios.get('https://jash10.pythonanywhere.com/operations/Employees', {
+      headers: {
+        'Authorization': `Token ${token}`
+      }
+    });
 
     dispatch({
       type: GET_EMPLOYEES,

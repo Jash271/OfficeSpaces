@@ -9,7 +9,7 @@ const WebView = (props) => {
   const apiFetch = async () => {
     const employeeName = props.match.params.employeeName;
     const response = await axios.get(
-      `http://127.0.0.1:8000/operations/get_user_attendance/${employeeName}`
+      `https://jash10.pythonanywhere.com/operations/get_user_attendance/${employeeName}`
     );
     const dummy = response.data;
     const dummy2 = [];
