@@ -20,7 +20,7 @@ const EmployeeDetail = ({ current }) => {
   const apiFetch = async () => {
     const employeeName = current.user_ref.username;
     const response = await axios.get(
-      `http://127.0.0.1:8000/operations/get_user_attendance/${employeeName}`
+      `http://jash10.pythonanywhere.com/get_user_attendance/${employeeName}`
     );
     const dummy = response.data;
     const dummy2 = [];
