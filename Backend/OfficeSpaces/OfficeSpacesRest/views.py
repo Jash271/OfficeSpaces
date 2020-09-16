@@ -24,6 +24,7 @@ from rest_framework.authtoken.views import APIView
 from rest_framework.response import Response
 import calendar
 import pytz
+from datetime import datetime
 
 
 class SignIn(generics.GenericAPIView):
@@ -224,7 +225,34 @@ class FetchAttendance(generics.GenericAPIView):
         attendace_list = []
         for i in attendace:
             attendace_list.append((str(i["date"])))
+        x = [
+            i[6]
+            for i in calendar.monthcalendar(datetime.now().year, datetime.now().month)
+            if i[6] != 0
+        ]
+        date = str(datetime.now().date())
+        day = int(date[-2:])
+        count = 0
+        for i in x:
+            if i <= day:
+                count += 1
+        total = 0
+        for i in calendar.monthcalendar(datetime.now().year, datetime.now().month):
+            for j in i:
+                if j != 0 and j <= day:
+                    total += 1
+
+        # counting no of days attended and percentage attendance
+        attended = 0
+        for i in attendace_list:
+            if int(i[5:7]) == int(date[5:7]):
+                attended += 1
+        attendace_percentage = (attended) / (total - count) * 100
+
         message = {
-            "Attendance_List": attendace_list,
+            "Total_Days": total,
+            "Sundays": count,
+            "days_attended": attended,
+            "Attendance_percentage": attendace_percentage,
         }
         return JsonResponse(message, status=status.HTTP_200_OK)
