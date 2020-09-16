@@ -223,8 +223,8 @@ class FetchAttendance(generics.GenericAPIView):
         u = User.objects.get(username=u_name)
         attendace = Attendance.objects.filter(user_ref=u).values("date")
         attendace_list = []
-        for i in attendace:
-            attendace_list.append((str(i["date"])))
+        for i in attendance:
+            attendance_list.append((str(i["date"])))
         x = [
             i[6]
             for i in calendar.monthcalendar(datetime.now().year, datetime.now().month)
