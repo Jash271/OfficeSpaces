@@ -1,0 +1,27 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorBlue</item>
+        <item name="colorPrimaryDark">#31039A</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:navigationBarColor">#31039A</item>
+
+    </style>
+
+    <style name="CustomTextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorDarkBlue</item>
+    </style>
+
+    <style name="MyTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimaryDark">#31039A</item>
+        <item name="android:navigationBarColor">#31039A</item>
+    </style>
+
+    <style name="MyTheme2" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimaryDark">#31039A</item>
+        <item name="android:navigationBarColor">#31039A</item>
+    </style>
+
+</resources>

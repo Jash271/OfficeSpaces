@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Office Spaces</string>
+    <string name="inst_employee_details">Please enter your employee ID and password to continue</string>
+    <string name="hint_employee_id">Employee ID</string>
+    <string name="hint_password">Password</string>
+    <string name="label_signin">Signin</string>
+    <string name="menu_home">Home</string>
+    <string name="employee_name">Employee Name</string>
+    <string name="tap_to_view_profile">Tap to view full profile</string>
+    <string name="home_your_calendar">Office Calendar</string>
+    <string name="menu_announcement">Announcement</string>
+    <string name="list_announcement_head">Announcement Header</string>
+    <string name="list_announcement_publisher">From (Publisher name)</string>
+    <string name="list_announcement_channel">To Employee Channel</string>
+    <string name="announcement_message"> Message body line 1 \nMessage body line 2 \nMessage body line 3 \nMessage body line 4 \nMessage body line 5
+    </string>
+    <string name="announcement_attachment">Attachments/Links</string>
+    <string name="announcement_link"><a href="https://www.google.com/">https://www.google.com/</a></string>
+    <string name="list_announcement_time">Uploaded on DD/MM/YYYY at HH:MM</string>
+    <string name="menu_attendance">Attendance</string>
+    <string name="profile_head">Profile</string>
+    <string name="profile_name">Name</string>
+    <string name="profile_age">Age</string>
+    <string name="profile_age_sample">Employee Age</string>
+    <string name="profile_gender">Gender</string>
+    <string name="profile_gender_sample">Employee Gender</string>
+    <string name="profile_date_join">Date of joining</string>
+    <string name="profile_date_join_sample">Employee Join Date</string>
+    <string name="profile_id">Your ID</string>
+    <string name="contact_head">Contact Info</string>
+    <string name="contact_email">Email</string>
+    <string name="contact_email_sample">Employee Email ID</string>
+    <string name="contact_phone">Phone</string>
+    <string name="contact_phone_sample">Employee Phone Number</string>
+    <string name="profile_note">In case of any discrepancy, please contact your office admin or the IT department of your company\n</string>
+    <string name="attendance_total_days">Working Days</string>
+    <string name="attendance_total_days_sample">28</string>
+    <string name="attendance_present_days">Present Days</string>
+    <string name="attendance_present_days_sample">21</string>
+    <string name="generate_attendance">Generate Attendance</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
