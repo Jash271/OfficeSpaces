@@ -13,8 +13,12 @@ const WebView = (props) => {
     );
     const dummy = response.data;
     const dummy2 = [];
-    for (let element in dummy) {
-      dummy2.push({ text: "P" });
+    for (let element of dummy.attendance_list) {
+      dummy2.push({
+        text: "P",
+        start: element,
+        color: "lightgreen",
+      });
     }
     setAttendance(dummy2);
   };

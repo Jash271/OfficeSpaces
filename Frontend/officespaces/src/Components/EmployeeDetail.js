@@ -8,10 +8,8 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Attendance from "./Attendance";
 import { connect } from "react-redux";
 
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
-
-
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 const EmployeeDetail = ({ current }) => {
   const [attendance, setAttendance] = useState([]);
@@ -24,12 +22,11 @@ const EmployeeDetail = ({ current }) => {
     );
     const dummy = response.data;
     const dummy2 = [];
-    for (let element in dummy) {
-      dummy2.push({ text: "P" });
+    for (let element of dummy.attendance_list) {
+      dummy2.push({ text: "P", start: element, color: "lightgreen" });
     }
     setAttendance(dummy2);
-    setPercentage(dummy.Attendance_percentage.toFixed(2))
-    console.log(dummy);
+    setPercentage(dummy.Attendance_percentage.toFixed(2));
   };
 
   useEffect(() => {
@@ -41,9 +38,7 @@ const EmployeeDetail = ({ current }) => {
       <div className="center">
         <h1>
           <span className="grey-text">Employee </span>
-          <span className="purple-text">
-            Details
-          </span>
+          <span className="purple-text">Details</span>
         </h1>
       </div>
       <div className="row">
@@ -81,9 +76,7 @@ const EmployeeDetail = ({ current }) => {
                             }}
                           >
                             <PersonIcon /> &nbsp;&nbsp;&nbsp;&nbsp;
-                            <span className="grey-text">
-                              Employee Name:
-                            </span>
+                            <span className="grey-text">Employee Name:</span>
                           </span>
                           <span className="purple-text">
                             {current.first_name} {current.last_name}
@@ -98,9 +91,7 @@ const EmployeeDetail = ({ current }) => {
                             }}
                           >
                             <ApartmentIcon /> &nbsp;&nbsp;&nbsp;&nbsp;
-                            <span className="grey-text">
-                              Address:
-                            </span>
+                            <span className="grey-text">Address:</span>
                           </span>
                           <span className="purple-text">{current.address}</span>
                         </h5>
@@ -113,9 +104,7 @@ const EmployeeDetail = ({ current }) => {
                             }}
                           >
                             <AccountCircleIcon /> &nbsp;&nbsp;&nbsp;&nbsp;
-                            <span className="grey-text">
-                              Username:
-                            </span>
+                            <span className="grey-text">Username:</span>
                           </span>
                           <span className="pruple-text">
                             {current.user_ref.username}
@@ -123,18 +112,26 @@ const EmployeeDetail = ({ current }) => {
                         </h5>
                       </div>
                       <div className="col s12 m6 l3">
-                        <b><h5><span className="grey-text">{current.first_name}'s</span> <span className="purple-text"> Attendance</span></h5></b>
+                        <b>
+                          <h5>
+                            <span className="grey-text">
+                              {current.first_name}'s
+                            </span>{" "}
+                            <span className="purple-text"> Attendance</span>
+                          </h5>
+                        </b>
                         <br />
                         <div style={{ width: 150, height: 150 }}>
                           <CircularProgressbar
                             value={`${percentage}`}
                             text={`${percentage}%`}
                             styles={buildStyles({
-                              trailColor: '#ccc',
-                              pathColor: 'rgb(92, 0, 153,1)',
-                              textColor: 'rgb(92, 0, 153,1)',
-                              textSize: 25
-                            })} />
+                              trailColor: "#ccc",
+                              pathColor: "rgb(92, 0, 153,1)",
+                              textColor: "rgb(92, 0, 153,1)",
+                              textSize: 25,
+                            })}
+                          />
                         </div>
                       </div>
                     </div>
@@ -149,9 +146,7 @@ const EmployeeDetail = ({ current }) => {
         <div className="center">
           <h3>
             <span className="grey-text">Attendance </span>
-            <span className="purple-text">
-              Calender
-          </span>
+            <span className="purple-text">Calender</span>
           </h3>
         </div>
         <br />
