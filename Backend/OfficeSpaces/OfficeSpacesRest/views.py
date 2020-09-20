@@ -49,6 +49,7 @@ class SignIn(generics.GenericAPIView):
                     "Token": token.key,
                     "Photo": p.photo.url,
                     "Is_Manager": p.Is_Manager,
+                    "Phone_NUmber": p.Phone_Number,
                     "Flag": 1,
                 }
                 return JsonResponse(message, status=status.HTTP_200_OK)
@@ -194,25 +195,15 @@ class AddAttendance(generics.GenericAPIView):
         return JsonResponse("OK", status=status.HTTP_200_OK, safe=False)
 
 
-class GetAttendance(generics.GenericAPIView):
+class MarkAttendance(generics.GenericAPIView):
     authentication_classes = [TokenAuthentication]
 
-    def get(self, request):
-        attendace = Attendance.objects.filter(user_ref=request.user).values("date")
-        attendace_list = []
-        for i in attendace:
-            attendace_list.append((str(i["date"])))
-        message = {
-            "Attendance_List": attendace_list,
-        }
-        return JsonResponse(message, status=status.HTTP_200_OK)
-
     def post(self, request):
-        timestamp = str(datetime.datetime.now(pytz.timezone("Asia/Kolkata")))
+        timestamp = str(datetime.now(pytz.timezone("Asia/Kolkata")))
         date = timestamp[0:10]
         time = timestamp[11:-13]
-        time_ = datetime.datetime.strptime(time, "%H:%M:%S").time()
-        date_ = datetime.datetime.strptime(date, "%Y-%m-%d").date()
+        time_ = datetime.strptime(time, "%H:%M:%S").time()
+        date_ = datetime.strptime(date, "%Y-%m-%d").date()
         u = Attendance(user_ref=request.user, date=date_, intime=time_)
         u.save()
         return JsonResponse("OK", status=status.HTTP_200_OK, safe=False)
@@ -221,8 +212,8 @@ class GetAttendance(generics.GenericAPIView):
 class FetchAttendance(generics.GenericAPIView):
     def get(self, request, u_name):
         u = User.objects.get(username=u_name)
-        attendace = Attendance.objects.filter(user_ref=u).values("date")
-        attendace_list = []
+        attedance = Attendance.objects.filter(user_ref=u).values("date")
+        attendance_list = []
         for i in attendance:
             attendance_list.append((str(i["date"])))
         x = [
@@ -244,16 +235,16 @@ class FetchAttendance(generics.GenericAPIView):
 
         # counting no of days attended and percentage attendance
         attended = 0
-        for i in attendace_list:
+        for i in attendance_list:
             if int(i[5:7]) == int(date[5:7]):
                 attended += 1
-        attendace_percentage = (attended) / (total - count) * 100
+        attendance_percentage = (attended) / (total - count) * 100
 
         message = {
             "Total_Days": total,
             "Sundays": count,
             "days_attended": attended,
-            "Attendance_percentage": attendace_percentage,
-            "attendance_list":attendance_list
+            "Attendance_percentage": attendance_percentage,
+            "attendance_list": attendance_list,
         }
         return JsonResponse(message, status=status.HTTP_200_OK)

@@ -1,14 +1,10 @@
 cd Backend
+pwd
 cd OfficeSpaces
-pip3 install -r requirements.txt
+pwd
 python3 manage.py makemigrations
 python3 manage.py migrate
+echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'pass')" | python3 manage.py shell
 python3 manage.py runserver
-cd ..
-cd ..
 
-cd Frontend
-cd officespaces
-npm i 
-npm start
-
+echo "Done loading"

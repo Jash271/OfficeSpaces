@@ -15,7 +15,7 @@ urlpatterns = [
     path("AllAnnouncements", views.AllAnnouncement.as_view(), name="AllAnnouncements"),
     path("violation-tracker", views.ChartData.as_view(), name="violation-tracker"),
     # path("attendance", views.AddAttendance.as_view(), name="attendance"),
-    path("get-attendance", views.GetAttendance.as_view(), name="get-attendance"),
+    path("mark-attendance", views.MarkAttendance.as_view(), name="mark-attendance"),
     path(
         "get_user_attendance/<str:u_name>",
         views.FetchAttendance.as_view(),
