@@ -49,7 +49,8 @@ class SignIn(generics.GenericAPIView):
                     "Token": token.key,
                     "Photo": p.photo.url,
                     "Is_Manager": p.Is_Manager,
-                    "Phone_NUmber": p.Phone_Number,
+                    "Phone_NUmber":p.Phone_Number,
+                    "Email":request.user.email,
                     "Flag": 1,
                 }
                 return JsonResponse(message, status=status.HTTP_200_OK)
@@ -212,7 +213,7 @@ class MarkAttendance(generics.GenericAPIView):
 class FetchAttendance(generics.GenericAPIView):
     def get(self, request, u_name):
         u = User.objects.get(username=u_name)
-        attedance = Attendance.objects.filter(user_ref=u).values("date")
+        attendance = Attendance.objects.filter(user_ref=u).values("date")
         attendance_list = []
         for i in attendance:
             attendance_list.append((str(i["date"])))
