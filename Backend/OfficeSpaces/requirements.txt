@@ -12,7 +12,7 @@ regex==2020.1.8
 sqlparse==0.3.0
 toml==0.10.0
 typed-ast==1.4.1
-pillow==6.2.2
+pillow==9.0.0
 requests==2.23.0
 pandas==1.0.1
 pandas-datareader==0.8.1
